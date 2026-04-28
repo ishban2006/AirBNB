@@ -11,7 +11,7 @@
         <% for (let elem of allListings) { %>
             <li><a href="/listings/<%= elem._id %>"><%= elem.title %></a></li>  <!-- Info about the listing -->
             <li><%= elem.description %></li>
-            <img src="<%= elem.image.url %>" alt="<%= elem.title %>" width="400px">
+            <img src="<%= elem.image.url %>" alt="<%= elem.title %>" width="200px">
             <hr>
         <% } %>
     </ul>

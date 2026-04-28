@@ -16,16 +16,30 @@ async function main() {
     await mongoose.connect(mongoURL);
 }
 
+const path = require("path");
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({extended : true}));     //To parse data of an id
+
 app.get("/", (req, res) => {
     res.send("Hi Sexy!!!");
     console.log("Response send");
 });
 
-app.get("/listings", async (req, res) => {      //Index Route
+//Index Route
+app.get("/listings", async (req, res) => {      
     const allListings = await Listing.find({});
     // console.log(allListings);
-    res.render("../views/listing/index.ejs", { allListings });
+    res.render("../views/listing/index", { allListings });
     console.log("Request rendered to index.ejs");
+});
+
+//Show Complete Info Route
+app.get("/listings/:id", async (req, res) => {     
+     let {id} = req.params;         //id is created by mongodb
+     const compData = await Listing.findById(id);
+     res.render("../views/listing/showInfo", { compData });
+     console.log("Request rendered to showInfo.ejs");
 });
 
 // app.get("/testListing", async(req, res) => {
