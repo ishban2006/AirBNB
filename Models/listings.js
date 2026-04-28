@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const defaultURL = "https://unsplash.com/photos/an-artists-rendering-of-a-forest-with-birds-flying-over-it-8Xhr_mrQozM";
-
+ 
 const listSchema = new Schema({
     title : {
         type : String,

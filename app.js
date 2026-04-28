@@ -34,6 +34,20 @@ app.get("/listings", async (req, res) => {
     console.log("Request rendered to index.ejs");
 });
 
+//Show form to add new listing
+app.get("/listings/createNew", async (req, res) => {
+    res.render("../views/listing/createNew");
+    console.log("Request rendered to createNew.ejs");
+});
+
+//Save the new listing in database
+app.post("/listings/createNew", async (req, res) => {
+    const newElem = new Listing (req.body.listing);
+    await newElem.save();
+    res.redirect("/listings");
+    console.log("Data saved in database");
+});
+
 //Show Complete Info Route
 app.get("/listings/:id", async (req, res) => {     
      let {id} = req.params;         //id is created by mongodb
