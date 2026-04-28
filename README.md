@@ -34,17 +34,30 @@ This is an early-stage implementation focusing on core backend functionality and
 AirBNB/
 │
 ├── models/
-│   └── listings.js        # Mongoose schema
+│   └── listing.js
 │
-├── init/                  # Database initialization scripts
+├── routes/
+│   └── listings.js
 │
 ├── views/
-│   └── listing/
-│       ├── index.ejs      # Show all listings
-│       ├── showInfo.ejs   # Show single listing details
-│       ├── createNew.ejs  # Create new listing form
+│   └── listings/
+│       ├── index.ejs
+│       ├── show.ejs
+│       ├── new.ejs
+│       ├── edit.ejs
 │
-├── app.js                 # Main server file
+├── public/
+│   ├── css/
+│   └── js/
+│
+├── init/
+│   ├── data.js
+│   └── index.js
+│
+├── app.js
+├── package.json
+├── package-lock.json
+└── README.md
 ```
 
 ---
