@@ -10,5 +10,10 @@
     <p><%= compData.description %></p>
     <p>₹ <%= compData.price.toLocaleString('en-IN') %></p>
     <img src="<%= compData.image.url %>" alt="<%= compData.title %>" width="800px">
+    <br><br><br>
+    
+    <form method = "GET" action="/listings/<%= compData._id %>/edit">
+        <button>Edit Info</button>
+    </form>
 </body>
 </html>

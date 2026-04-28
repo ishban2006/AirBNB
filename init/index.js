@@ -1,6 +1,7 @@
+/* Initialize DataBase */
 const mongoose = require("mongoose");
 const iData = require("./data");
-const Listing = require("../Models/listings");
+const Listing = require("../models/listings");
 const mongoURL = "mongodb://127.0.0.1:27017/wander";
 
 main()

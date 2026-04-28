@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const mongoURL = "mongodb://127.0.0.1:27017/wander";
-const Listing = require("./Models/listings");
+const Listing = require("./models/listings");
+const methodOverride = require("method-override");
 
 main()
     .then(() => {
@@ -20,6 +21,7 @@ const path = require("path");
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended : true}));     //To parse data of an id
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
     res.send("Hi Sexy!!!");
@@ -54,6 +56,22 @@ app.get("/listings/:id", async (req, res) => {
      const compData = await Listing.findById(id);
      res.render("../views/listing/showInfo", { compData });
      console.log("Request rendered to showInfo.ejs");
+});
+
+//Edit Info
+app.get("/listings/:id/edit", async (req, res) => {
+    let {id} = req.params;         
+    const compData = await Listing.findById(id);
+    res.render("../views/listing/editInfo", { compData });
+    console.log("Request rendered to editInfo.ejs");
+});
+
+//Save Edit Info
+app.put("/listings/:id", async (req, res) => {
+    let {id} = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individua values
+    res.redirect(`/listings/${id}`);
+    console.log("Data edited successfully");
 });
 
 // app.get("/testListing", async(req, res) => {

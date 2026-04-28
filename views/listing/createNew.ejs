@@ -9,22 +9,22 @@
     <h1>Create New Listing</h1>
     <form method="POST" action="/listings/createNew">
         <label for="title">Title:</label><br>
-        <input type="text" id="title" name="listing[title]"><br><br>
+        <input type="text" id="title" placeholder="Enter listing title" name="listing[title]"><br><br>
 
         <label for="description">Description:</label><br>
-        <textarea id="description" name="listing[description]" rows="4" cols="50"></textarea><br><br>
+        <textarea id="description" placeholder="Enter listing description" rows="4" cols="50"></textarea><br><br>
 
         <label for="imageUrl">Image URL:</label><br>
-        <input type="url" id="imageUrl" name="listing[imageUrl]" width="1000px"><br><br>
+        <input type="text" id="imageUrl" placeholder="Enter image URL" name="listing[image][url]"><br><br>
 
         <label for="price">Price (₹):</label><br>
-        <input type="number" id="price" name="listing[price]" required><br><br>
+        <input type="number" id="price" placeholder="Enter price" name="listing[price]" required><br><br>
 
         <label for="location">Location:</label><br>
-        <input type="text" id="location" name="listing[location]" required><br><br>
+        <input type="text" id="location" placeholder="Enter location" name="listing[location]" required><br><br>
 
         <label for="country">Country:</label><br>
-        <input type="text" id="country" name="listing[country]"><br><br>
+        <input type="text" id="country" placeholder="Enter country" name="listing[country]"><br><br>
 
         <button type="submit">Create Listing</button>
     </form>
