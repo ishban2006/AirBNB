@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const mongoURL = "mongodb://127.0.0.1:27017/wander";
 const Listing = require("./models/listings");
 const methodOverride = require("method-override");
-
+ 
 main()
     .then(() => {
         console.log("Connected to DataBase");
@@ -72,6 +72,14 @@ app.put("/listings/:id", async (req, res) => {
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individua values
     res.redirect(`/listings/${id}`);
     console.log("Data edited successfully");
+});
+
+//Delete a Listing
+app.delete("/listings/:id", async (req, res) => {
+    let {id} = req.params;
+    const deleted = await Listing.findByIdAndDelete(id);  
+    console.log(`Listing : ${deleted.title} successfully deleted`);
+    res.redirect("/listings");
 });
 
 // app.get("/testListing", async(req, res) => {

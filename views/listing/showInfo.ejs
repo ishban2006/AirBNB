@@ -15,5 +15,9 @@
     <form method = "GET" action="/listings/<%= compData._id %>/edit">
         <button>Edit Info</button>
     </form>
+    <br><br>
+    <form method = "POST" action="/listings/<%= compData._id %>?_method=DELETE">
+        <button>Delete Listing</button>
+    </form>
 </body>
 </html>
