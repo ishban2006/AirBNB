@@ -2,20 +2,20 @@
 
 ## 📌 Overview
 
-This project is a full-stack web application inspired by Airbnb, built using Node.js, Express, MongoDB, and EJS. It allows users to view property listings, explore detailed information, and create new listings.
-
-This is an early-stage implementation focusing on core backend functionality and server-side rendering.
+This project is a full-stack web application inspired by Airbnb, built using Node.js, Express, MongoDB, and EJS. It allows users to view listings, explore detailed information, and perform full CRUD operations on listings.
 
 ---
 
 ## 🚀 Features Implemented
 
-* 📋 View all listings (Index Route)
-* 🔍 View detailed information for a single listing (Show Route)
-* ➕ Create a new listing (Form + POST request)
+* 📋 View all listings (Index)
+* 🔍 View detailed information of a listing (Show)
+* ➕ Create a new listing (Create)
+* ✏️ Edit existing listings (Update)
+* ❌ Delete listings (Delete)
 * 🗄️ MongoDB integration using Mongoose
-* 🧠 Dynamic rendering using EJS templates
-* 🔗 RESTful routing (GET & POST requests)
+* 🧠 Dynamic rendering using EJS
+* 🔗 RESTful routing (GET, POST, PUT, DELETE)
 
 ---
 
@@ -24,39 +24,31 @@ This is an early-stage implementation focusing on core backend functionality and
 * **Backend:** Node.js, Express.js
 * **Database:** MongoDB (Mongoose)
 * **Templating Engine:** EJS
-* **Frontend:** HTML, CSS (basic)
+* **Frontend:** HTML, CSS
 
 ---
 
 ## 📂 Project Structure
 
-```
+```id="struct2"
 AirBNB/
 │
 ├── models/
-│   └── listing.js
-│
-├── routes/
 │   └── listings.js
-│
-├── views/
-│   └── listings/
-│       ├── index.ejs
-│       ├── show.ejs
-│       ├── new.ejs
-│       ├── edit.ejs
-│
-├── public/
-│   ├── css/
-│   └── js/
 │
 ├── init/
 │   ├── data.js
 │   └── index.js
 │
+├── views/
+│   └── listing/
+│       ├── index.ejs
+│       ├── showInfo.ejs
+│       ├── createNew.ejs
+│       ├── editInfo.ejs
+│
 ├── app.js
 ├── package.json
-├── package-lock.json
 └── README.md
 ```
 
@@ -64,11 +56,15 @@ AirBNB/
 
 ## 🔄 Routes Implemented
 
-| Method | Route           | Description               |
-| ------ | --------------- | ------------------------- |
-| GET    | `/listings`     | Show all listings         |
-| GET    | `/listings/:id` | Show details of a listing |
-| POST   | `/listings`     | Create a new listing      |
+| Method | Route                | Description                 |
+| ------ | -------------------- | --------------------------- |
+| GET    | `/listings`          | Display all listings        |
+| GET    | `/listings/:id`      | Display single listing      |
+| GET    | `/listings/new`      | Show form to create listing |
+| POST   | `/listings`          | Create new listing          |
+| GET    | `/listings/:id/edit` | Show edit form              |
+| PUT    | `/listings/:id`      | Update listing              |
+| DELETE | `/listings/:id`      | Delete listing              |
 
 ---
 
@@ -76,28 +72,28 @@ AirBNB/
 
 1. Clone the repository:
 
-```bash
+```bash id="setup1"
 git clone <your-repo-link>
 cd AirBNB
 ```
 
 2. Install dependencies:
 
-```bash
+```bash id="setup2"
 npm install
 ```
 
-3. Start MongoDB (locally or Atlas)
+3. Start MongoDB locally or use MongoDB Atlas
 
-4. Run the app:
+4. Run the application:
 
-```bash
+```bash id="setup3"
 node app.js
 ```
 
 5. Open in browser:
 
-```
+```id="setup4"
 http://localhost:8080/listings
 ```
 
@@ -105,35 +101,32 @@ http://localhost:8080/listings
 
 ## ⚠️ Current Limitations
 
-* No update/edit functionality yet
-* No delete functionality
-* No authentication or authorization
-* Basic UI (not styled fully)
-* No validation or error handling
+* No authentication (login/signup)
+* No image upload (only URL-based images)
+* Basic UI (not fully styled)
+* Minimal validation and error handling
 
 ---
 
 ## 🚧 Future Improvements
 
-* ✏️ Edit & Delete listings (Full CRUD)
-* 🔐 User authentication (Login/Signup)
+* 🔐 Authentication & Authorization
 * ⭐ Reviews and ratings system
 * 📸 Image uploads (Cloudinary)
-* 🎨 Improved UI/UX
+* 🎨 Improved UI/UX (responsive design)
 * ⚡ API-based architecture
 
 ---
 
 ## 💡 Learning Outcomes
 
-* Understanding RESTful routing
-* Working with MongoDB & Mongoose
+* RESTful routing (GET, POST, PUT, DELETE)
+* CRUD operations using MongoDB & Mongoose
 * Server-side rendering using EJS
-* Handling GET and POST requests in Express
+* Handling form data and dynamic routing
 
 ---
 
 ## 👨‍💻 Author
 
 Ishaan Bansal
-
