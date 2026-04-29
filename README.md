@@ -2,19 +2,21 @@
 
 ## 📌 Overview
 
-This project is a full-stack web application inspired by Airbnb, built using Node.js, Express, MongoDB, and EJS. It allows users to view listings, explore detailed information, and perform full CRUD operations on listings.
+This project is a full-stack Airbnb-inspired web application built using Node.js, Express, MongoDB, and EJS. It supports full CRUD operations for property listings and uses server-side rendering with reusable layouts and components.
 
 ---
 
 ## 🚀 Features Implemented
 
-* 📋 View all listings (Index)
-* 🔍 View detailed information of a listing (Show)
-* ➕ Create a new listing (Create)
+* 📋 View all listings (Index Page)
+* 🔍 View detailed listing information (Show Page)
+* ➕ Create new listings (Create)
 * ✏️ Edit existing listings (Update)
 * ❌ Delete listings (Delete)
-* 🗄️ MongoDB integration using Mongoose
 * 🧠 Dynamic rendering using EJS
+* ♻️ Reusable components (Navbar & Footer)
+* 🧱 Layout system using EJS boilerplate
+* 🎨 Basic styling with custom CSS
 * 🔗 RESTful routing (GET, POST, PUT, DELETE)
 
 ---
@@ -30,7 +32,7 @@ This project is a full-stack web application inspired by Airbnb, built using Nod
 
 ## 📂 Project Structure
 
-```id="struct2"
+```id="struct3"
 AirBNB/
 │
 ├── models/
@@ -40,7 +42,18 @@ AirBNB/
 │   ├── data.js
 │   └── index.js
 │
+├── public/
+│   └── css/
+│       └── style.css
+│
 ├── views/
+│   ├── includes/
+│   │   ├── navbar.ejs
+│   │   └── footer.ejs
+│   │
+│   ├── layouts/
+│   │   └── boilerplate.ejs
+│   │
 │   └── listing/
 │       ├── index.ejs
 │       ├── showInfo.ejs
@@ -68,32 +81,40 @@ AirBNB/
 
 ---
 
+## 🧩 EJS Architecture
+
+* **Layouts:** Shared structure using `boilerplate.ejs`
+* **Includes:** Reusable components like navbar and footer
+* **Views:** Dynamic pages rendered with data from MongoDB
+
+---
+
 ## ⚙️ Setup Instructions
 
 1. Clone the repository:
 
-```bash id="setup1"
+```bash id="setupA"
 git clone <your-repo-link>
 cd AirBNB
 ```
 
 2. Install dependencies:
 
-```bash id="setup2"
+```bash id="setupB"
 npm install
 ```
 
-3. Start MongoDB locally or use MongoDB Atlas
+3. Start MongoDB (locally or via Atlas)
 
-4. Run the application:
+4. Run the app:
 
-```bash id="setup3"
+```bash id="setupC"
 node app.js
 ```
 
 5. Open in browser:
 
-```id="setup4"
+```id="setupD"
 http://localhost:8080/listings
 ```
 
@@ -101,29 +122,29 @@ http://localhost:8080/listings
 
 ## ⚠️ Current Limitations
 
-* No authentication (login/signup)
-* No image upload (only URL-based images)
-* Basic UI (not fully styled)
-* Minimal validation and error handling
+* No authentication system
+* No image upload (URL-based only)
+* Basic UI styling
+* Limited validation & error handling
 
 ---
 
 ## 🚧 Future Improvements
 
 * 🔐 Authentication & Authorization
-* ⭐ Reviews and ratings system
-* 📸 Image uploads (Cloudinary)
-* 🎨 Improved UI/UX (responsive design)
-* ⚡ API-based architecture
+* ⭐ Reviews & Ratings
+* 📸 Image upload (Cloudinary)
+* 🎨 Advanced UI/UX (responsive design)
+* 🌐 Deployment (Render / Vercel / Railway)
 
 ---
 
 ## 💡 Learning Outcomes
 
-* RESTful routing (GET, POST, PUT, DELETE)
-* CRUD operations using MongoDB & Mongoose
-* Server-side rendering using EJS
-* Handling form data and dynamic routing
+* RESTful routing and CRUD operations
+* MVC-like project structuring
+* EJS templating with layouts and partials
+* MongoDB integration with Mongoose
 
 ---
 
