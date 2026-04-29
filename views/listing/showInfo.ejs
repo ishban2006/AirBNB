@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= compData.title %></title>
-</head>
+<% layout("/layouts/boilerplate") %>
 <body>
-    <h1><%= compData.title %></h1>
+    <h2><%= compData.title %></h2>
     <p><%= compData.description %></p>
     <p>₹ <%= compData.price.toLocaleString('en-IN') %></p>
     <img src="<%= compData.image.url %>" alt="<%= compData.title %>" width="800px">
@@ -20,4 +14,3 @@
         <button>Delete Listing</button>
     </form>
 </body>
-</html>

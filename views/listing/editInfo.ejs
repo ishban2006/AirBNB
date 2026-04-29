@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Your Listing</title>
-</head>
+<% layout("/layouts/boilerplate") %>
 <body>
-    <h1> Edit Your Listing</h1>
+    <h2> Edit Your Listing</h2>
     <form method="POST" action="/listings/<%= compData._id %>?_method=PUT">     <!-- PUT overrides POST -->
         <label for="title">Title:</label><br>
         <input type="text" value = "<%= compData.title %>" name="listing[title]"><br><br>
@@ -28,4 +22,3 @@
 
         <button type="submit">Edit Information</button>
     </form>
-</html>
