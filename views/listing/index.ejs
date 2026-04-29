@@ -1,14 +1,30 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-    <h3>AirBnB</h3>
-    <ul>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1">
+        <% for (let elem of allListings) { %>
+            <a href="/listings/<%= elem._id %>" class = "card-link">
+                <div class="card col">
+                    <img src="<%= elem.image.url %>" class="card-img-top" alt="<%= elem.title %>">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b><%= elem.title %></b><br>
+                            ₹ <%= elem.price.toLocaleString('en-IN') %> / night
+                        </p>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+    </div>
+    
+    <!-- <ul>
         <% for (let elem of allListings) { %>
             <li><a href="/listings/<%= elem._id %>"><%= elem.title %></a></li>  <!-- Info about the listing -->
-            <li><%= elem.description %></li>
+            <!-- <li><%= elem.description %></li>
             <img src="<%= elem.image.url %>" alt="<%= elem.title %>" width="200px">
             <hr>
         <% } %>
-    </ul>
+    </ul> --> 
 
     <!-- <form method="GET" action="/listings/createNew">
         <button>Create New Listing</button>
