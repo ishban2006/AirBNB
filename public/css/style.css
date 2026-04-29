@@ -1,9 +1,13 @@
-h1 {
-    font-size: 2em;
-    color: #199899;
-    margin-bottom: 20px;
+.navbar {
+    height: 5rem;
 }
 
-body {
-    background-color:beige;
+.fa-joomla {
+    color: #E5383B;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #0B090A !important;
+    font-size: 1.25rem !important;
 }
