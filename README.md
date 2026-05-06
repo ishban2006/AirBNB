@@ -1,30 +1,48 @@
 # 🏡 Airbnb Clone (Full Stack Project)
 
-## 📌 Overview
+## 📌 Project Overview
 
-This project is a full-stack Airbnb-inspired web application built using Node.js, Express, MongoDB, and EJS. It supports full CRUD operations for property listings and uses server-side rendering with reusable layouts and components.
+This project is a full-stack Airbnb-inspired web application built using **Node.js, Express.js, MongoDB, and EJS** with server-side rendering.
+
+The application currently supports complete CRUD functionality for property listings:
+
+* Users can view all listings
+* Explore detailed information about individual listings
+* Create new listings
+* Edit and update existing listings
+* Delete listings from the database
+
+MongoDB is used for database management with Mongoose for schema modeling and database interaction.
+The frontend is rendered dynamically using EJS templates with reusable layouts and components.
+
+The project also includes:
+
+* Reusable navbar and footer components using EJS includes
+* Shared boilerplate layout for consistent UI structure
+* Custom CSS styling
+* RESTful routing architecture
+* Organized folder structure for scalability and maintainability
 
 ---
 
 ## 🚀 Features Implemented
 
-* 📋 View all listings (Index Page)
-* 🔍 View detailed listing information (Show Page)
-* ➕ Create new listings (Create)
-* ✏️ Edit existing listings (Update)
-* ❌ Delete listings (Delete)
-* 🧠 Dynamic rendering using EJS
-* ♻️ Reusable components (Navbar & Footer)
-* 🧱 Layout system using EJS boilerplate
-* 🎨 Basic styling with custom CSS
-* 🔗 RESTful routing (GET, POST, PUT, DELETE)
+* 📋 View all property listings
+* 🔍 Detailed listing page
+* ➕ Create new listing
+* ✏️ Edit existing listing
+* ❌ Delete listing
+* 🧠 Dynamic EJS rendering
+* ♻️ Reusable layouts and partials
+* 🎨 Custom styling with CSS
+* 🔗 RESTful CRUD routes
 
 ---
 
 ## 🛠️ Tech Stack
 
 * **Backend:** Node.js, Express.js
-* **Database:** MongoDB (Mongoose)
+* **Database:** MongoDB, Mongoose
 * **Templating Engine:** EJS
 * **Frontend:** HTML, CSS
 
@@ -32,15 +50,15 @@ This project is a full-stack Airbnb-inspired web application built using Node.js
 
 ## 📂 Project Structure
 
-```id="struct3"
-AirBNB/
-│
-├── models/
-│   └── listings.js
+```id="projectStruct"
+AIRBNB/
 │
 ├── init/
 │   ├── data.js
 │   └── index.js
+│
+├── models/
+│   └── listings.js
 │
 ├── public/
 │   └── css/
@@ -58,10 +76,11 @@ AirBNB/
 │       ├── index.ejs
 │       ├── showInfo.ejs
 │       ├── createNew.ejs
-│       ├── editInfo.ejs
+│       └── editInfo.ejs
 │
 ├── app.js
 ├── package.json
+├── package-lock.json
 └── README.md
 ```
 
@@ -69,85 +88,60 @@ AirBNB/
 
 ## 🔄 Routes Implemented
 
-| Method | Route                | Description                 |
-| ------ | -------------------- | --------------------------- |
-| GET    | `/listings`          | Display all listings        |
-| GET    | `/listings/:id`      | Display single listing      |
-| GET    | `/listings/new`      | Show form to create listing |
-| POST   | `/listings`          | Create new listing          |
-| GET    | `/listings/:id/edit` | Show edit form              |
-| PUT    | `/listings/:id`      | Update listing              |
-| DELETE | `/listings/:id`      | Delete listing              |
-
----
-
-## 🧩 EJS Architecture
-
-* **Layouts:** Shared structure using `boilerplate.ejs`
-* **Includes:** Reusable components like navbar and footer
-* **Views:** Dynamic pages rendered with data from MongoDB
+| Method | Route                | Description                |
+| ------ | -------------------- | -------------------------- |
+| GET    | `/listings`          | Show all listings          |
+| GET    | `/listings/:id`      | Show details of a listing  |
+| GET    | `/listings/new`      | Render create listing form |
+| POST   | `/listings`          | Create a new listing       |
+| GET    | `/listings/:id/edit` | Render edit form           |
+| PUT    | `/listings/:id`      | Update listing             |
+| DELETE | `/listings/:id`      | Delete listing             |
 
 ---
 
 ## ⚙️ Setup Instructions
 
-1. Clone the repository:
+1. Clone the repository
 
-```bash id="setupA"
-git clone <your-repo-link>
-cd AirBNB
+```bash id="cloneCmd"
+git clone <your-repository-link>
+cd AIRBNB
 ```
 
-2. Install dependencies:
+2. Install dependencies
 
-```bash id="setupB"
+```bash id="installCmd"
 npm install
 ```
 
-3. Start MongoDB (locally or via Atlas)
+3. Start MongoDB locally
 
-4. Run the app:
+4. Run the application
 
-```bash id="setupC"
+```bash id="runCmd"
 node app.js
 ```
 
-5. Open in browser:
+5. Open in browser
 
-```id="setupD"
+```id="browserCmd"
 http://localhost:8080/listings
 ```
 
 ---
 
-## ⚠️ Current Limitations
-
-* No authentication system
-* No image upload (URL-based only)
-* Basic UI styling
-* Limited validation & error handling
-
----
-
 ## 🚧 Future Improvements
 
-* 🔐 Authentication & Authorization
-* ⭐ Reviews & Ratings
-* 📸 Image upload (Cloudinary)
-* 🎨 Advanced UI/UX (responsive design)
-* 🌐 Deployment (Render / Vercel / Railway)
-
----
-
-## 💡 Learning Outcomes
-
-* RESTful routing and CRUD operations
-* MVC-like project structuring
-* EJS templating with layouts and partials
-* MongoDB integration with Mongoose
+* 🔐 User Authentication & Authorization
+* ⭐ Reviews and Ratings
+* 📸 Cloudinary Image Uploads
+* 🎨 Fully Responsive UI
+* 🌐 Deployment
+* 🗺️ Maps & Geolocation Integration
 
 ---
 
 ## 👨‍💻 Author
 
-Ishaan Bansal
+**Ishaan Bansal**
