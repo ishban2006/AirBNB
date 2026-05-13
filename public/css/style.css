@@ -47,7 +47,7 @@ body {
 }
 
 .f-info-socials i {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-right: 1.5rem;
 }
 
@@ -114,4 +114,23 @@ body {
 .btn {
     background-color : #E5383B !important;
     border: none !important;
+}
+
+.btn:hover {
+    /* background-color : #e5383bc1 !important; */
+    opacity: 0.6;
+}
+
+.btn-danger {
+    background-color : #B00020 !important;
+}
+
+/* Show Page */
+.show-img {
+    height: 30vh !important;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
 }

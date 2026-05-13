@@ -1,12 +1,50 @@
 <% layout("/layouts/boilerplate") %>
 <body>
-    <h2> Edit Your Listing</h2>
-    <form method="POST" action="/listings/<%= compData._id %>?_method=PUT">     <!-- PUT overrides POST -->
-        <label for="title">Title:</label><br>
-        <input type="text" value = "<%= compData.title %>" name="listing[title]"><br><br>
+    <br><br>
+    <h1> Edit Your Listing</h1>
+    <br>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <form method="POST" action="/listings/<%= compData._id %>?_method=PUT">     <!-- PUT overrides POST -->
+                <div class="form-group mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" value = "<%= compData.title %>" name="listing[title]" class="form-control">
+                </div>
 
-        <label for="description">Description:</label><br>
-        <textarea name="listing[description]" rows="4" cols="50"><%= compData.description %></textarea><br><br>
+                <div class="form-group mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea name="listing[description]" rows="4" cols="50" class="form-control"><%= compData.description %></textarea>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="imageUrl" class="form-label">Image URL:</label>
+                    <input type="text" value = "<%= compData.image.url %>" name="listing[image][url]" class="form-control">
+                </div>
+
+                <div class="row">
+                    <div class="form-group mb-3 col-md-5">
+                        <label for="price" class="form-label">Price (₹):</label>
+                        <input type="number" value = "<%= compData.price %>" id="price" name="listing[price]" required class="form-control">
+                    </div>
+
+                    <div class="form-group mb-3 col-md-7">
+                        <label for="country" class="form-label">Country:</label>
+                        <input type="text" value = "<%= compData.country %>" id="country" name="listing[country]" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="location" class="form-label">Location:</label>
+                    <input type="text" value = "<%= compData.location %>" id="location" name="listing[location]" required class="form-control">
+                </div>
+
+                <br><br>
+                <button type="submit" class="btn btn-primary">Edit Information</button>
+            </form>
+        </div>
+    </div>
+</body>
+        <!-- <textarea name="listing[description]" rows="4" cols="50"><%= compData.description %></textarea><br><br>
 
         <label for="imageUrl">Image URL:</label><br>
         <input type="text" value = "<%= compData.image.url %>" name="listing[image][url]"><br><br>
@@ -20,5 +58,5 @@
         <label for="country">Country:</label><br>
         <input type="text" value = "<%= compData.country %>" id="country" name="listing[country]"><br><br>
 
-        <button type="submit">Edit Information</button>
-    </form>
+        <button type="submit" class="btn btn-primary">Edit Information</button>
+    </form> -->
