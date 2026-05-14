@@ -51,7 +51,7 @@ app.post("/listings/createNew", async (req, res) => {
     await newElem.save();
     res.redirect("/listings");
     console.log("Data saved in database");
-});
+}); 
 
 //Show Complete Info Route
 app.get("/listings/:id", async (req, res) => {     

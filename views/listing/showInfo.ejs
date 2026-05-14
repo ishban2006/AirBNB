@@ -4,7 +4,7 @@
         <div class="col-8 offset-3 mt-4">
             <h2>Full Details</h2>
         </div>
-        <div class="card col-6 offset-3">
+        <div class="card col-10 col-md-6 mx-auto">
             <img src="<%= compData.image.url %>" class="card-img-top show-img" alt="<%= compData.title %>">
             <div class="card-body mt-3">
                 <p class="card-text">
@@ -14,15 +14,16 @@
                     <%= compData.country %><br>
                     ₹ <%= compData.price.toLocaleString('en-IN') %>
                 </p>
-                <div class="btns">
+                <div class="btns flex-column flex-md-row">
                     <div>
                         <form method = "GET" action="/listings/<%= compData._id %>/edit">
-                            <button class="btn btn-primary mt-3">Edit Info</button>
+                            <button class="btn btn-primary mt-3">Edit Information</button>
                         </form>
                     </div>
                     <div>
                         <form method = "POST" action="/listings/<%= compData._id %>?_method=DELETE">
-                            <button class="btn btn-danger mt-3">Delete Listing</button>
+                            <button class="btn btn-danger mt-3" 
+                            onsubmit="return confirm('Are you sure you want to delete this listing?');">Delete Listing</button>
                         </form>
                     </div>
                 </div>
