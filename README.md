@@ -1,221 +1,110 @@
-# 🏡 Airbnb Clone (Full Stack Project)
+# Airbnb Clone Project
 
-## 📌 Project Overview
+## 📌 Overview
 
-This is a full-stack Airbnb-inspired web application built using **Node.js, Express.js, MongoDB, Mongoose, EJS, and CSS**.
+A full-stack Airbnb-style web application built using Node.js, Express.js, MongoDB, Mongoose, EJS, and Bootstrap.
 
-The application currently supports complete CRUD (Create, Read, Update, Delete) functionality for property listings, allowing users to browse listings, view detailed information, create new entries, edit existing listings, and remove listings from the database.
-
-The backend is built using **Express.js** with **MongoDB** as the database and **Mongoose** for schema modeling and database interactions. The frontend uses **EJS templating** for server-side rendering with reusable layouts and partial components.
-
-This project follows a modular folder structure for maintainability and scalability.
+Users can create, view, edit, and delete property listings through a responsive interface following RESTful routing principles.
 
 ---
 
-## 🚀 Features Implemented
+# ✨ Features
 
-### Core Functionality
-- View all property listings
-- View complete details of a single listing
-- Create new property listings
-- Edit existing listings
-- Delete listings with confirmation popup
-
-### Backend Features
-- RESTful routing architecture
-- Dynamic route parameters
-- Express server setup
-- MongoDB integration using Mongoose
-- Schema-based data modeling
-- Database seeding with sample data
-- Method override for PUT and DELETE requests
-
-### Frontend Features
-- Dynamic server-side rendering using EJS
-- Reusable navbar and footer components
-- Shared boilerplate layout template
-- Custom CSS styling
-- Styled listing detail page
-- Styled edit listing page
-- Delete confirmation dialog for safer actions
+* CRUD operations for listings
+* Responsive UI using Bootstrap
+* Dynamic EJS templating
+* Reusable layouts and partials
+* Client-side validation using Bootstrap
+* Server-side validation using Joi
+* Custom error handling middleware
+* Async wrapper for handling route errors
+* Method override for PUT and DELETE requests
+* MongoDB integration using Mongoose
 
 ---
 
-## 🛠️ Tech Stack
+# ⚠️ Error Handling
 
-### Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-
-### Frontend
-- HTML
-- CSS
-- EJS
-
-### Tools & Packages
-- method-override
-- ejs-mate
-- nodemon
+* Custom Express error class
+* Centralized error middleware
+* Joi validation errors
+* Mongoose validation errors
+* Custom error page (`error.ejs`)
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
-```text
-AIRBNB/
-│
-├── init/
-│   ├── data.js              # Sample listing data
-│   └── index.js             # Database initialization script
+```text id="pl3my0"
+AIRBNB
 │
 ├── models/
-│   └── listings.js          # Mongoose schema/model
-│
 ├── public/
-│   └── css/
-│       └── style.css        # Custom styling
-│
+│   ├── css/
+│   └── js/
+├── utility/
 ├── views/
 │   ├── includes/
-│   │   ├── navbar.ejs       # Reusable navbar
-│   │   └── footer.ejs       # Reusable footer
-│   │
 │   ├── layouts/
-│   │   └── boilerplate.ejs  # Common page layout
-│   │
 │   └── listing/
-│       ├── index.ejs        # All listings page
-│       ├── showInfo.ejs     # Single listing details
-│       ├── createNew.ejs    # Create listing form
-│       └── editInfo.ejs     # Edit listing form
 │
-├── app.js                   # Main application server
-├── package.json
-├── package-lock.json
+├── app.js
+├── schema.js
 └── README.md
 ```
 
 ---
 
-## 🔄 Routes Implemented
+# 🛠️ Tech Stack
 
-| Method | Route | Description |
-|--------|------|-------------|
-| GET | `/listings` | Display all listings |
-| GET | `/listings/new` | Show form to create a new listing |
-| POST | `/listings` | Create a new listing |
-| GET | `/listings/:id` | Show detailed listing info |
-| GET | `/listings/:id/edit` | Show edit form |
-| PUT | `/listings/:id` | Update listing |
-| DELETE | `/listings/:id` | Delete listing |
+## Frontend
+
+* HTML
+* CSS
+* Bootstrap
+* EJS
+
+## Backend
+
+* Node.js
+* Express.js
+
+## Database
+
+* MongoDB
+* Mongoose
+
+## Validation & Utilities
+
+* Joi
+* Method-Override
+* EJS-Mate
 
 ---
 
-## ⚙️ Installation & Setup
+# 🚀 Run Project
 
-### 1. Clone the repository
+## Install Dependencies
 
-```bash
-git clone <your-github-repo-link>
-cd AIRBNB
-```
-
----
-
-### 2. Install dependencies
-
-```bash
+```bash id="d6vjlwm"
 npm install
 ```
 
----
+## Start Server
 
-### 3. Start MongoDB
+```bash id="o8jlwm"
+npm run dev
+```
 
-Make sure MongoDB is running locally:
+or
 
-```bash
-mongod
+```bash id="njlwm7"
+nodemon app.js
 ```
 
 ---
 
-### 4. Seed sample data (optional)
-
-```bash
-node init/index.js
-```
-
----
-
-### 5. Start the application
-
-```bash
-node app.js
-```
-
-For development:
-
-```bash
-npx nodemon app.js
-```
-
----
-
-### 6. Open in browser
-
-```text
-http://localhost:8080/listings
-```
-
----
-
-## 📚 Concepts Practiced
-
-This project helped in learning and implementing:
-
-- CRUD operations
-- RESTful routing
-- Express middleware
-- Dynamic routing
-- Route parameters
-- Form handling
-- Template rendering with EJS
-- Layouts and partials
-- MongoDB database operations
-- Mongoose schema design
-- Method override
-- Project folder structuring
-
----
-
-## 🚧 Planned Features
-
-Future improvements planned:
-
-- User authentication (Signup/Login/Logout)
-- Authorization (only owners can edit/delete)
-- Reviews and ratings system
-- Image upload using Cloudinary
-- Search functionality
-- Listing filters
-- Wishlist / Favorites
-- Interactive maps integration
-- Booking system
-- Payment integration
-- Responsive UI improvements
-- Flash success/error messages
-
----
-
-## 👨‍💻 Author
+# 📌 Author
 
 **Ishaan Bansal**
-
----
-
-## 🌟 Project Status
-
-Currently under active development 🚀
+DTU CSE Student
