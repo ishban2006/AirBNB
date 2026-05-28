@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utility/wrapAsync");
 const expressError = require("./utility/expressError");
+const {listingSchema} = require("./schema");
  
 main()
     .then(() => {
@@ -54,13 +55,24 @@ app.get(
     })
 );
 
+//Middleware for Validation
+const validateListing = (req, res, next) => {
+    let result = listingSchema.validate(req.body);
+    let error = result.error;
+    console.log(error);
+    if (error) {
+        let errorMsg = error.details.map((el) => el.message).join(",");
+        throw new expressError(469, errorMsg);
+    }
+    else
+        next();
+}
+
 //Save the new listing in database
 app.post(
     "/listings/createNew", 
+    validateListing,
     wrapAsync(async (req, res, next) => {
-        if (!req.body.listing) {
-            throw new expressError(400, "Send Valid Data");
-        }
         const newElem = new Listing (req.body.listing);
         await newElem.save();
         res.redirect("/listings");
@@ -93,6 +105,7 @@ app.get(
 //Save Edit Info
 app.put(
     "/listings/:id", 
+    validateListing,
     wrapAsync(async (req, res) => {
         if (!req.body.listing) {
             throw new expressError(400, "Send Valid Data");
