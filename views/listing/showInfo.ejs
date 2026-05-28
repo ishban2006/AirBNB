@@ -21,9 +21,9 @@
                         </form>
                     </div>
                     <div>
-                        <form method = "POST" action="/listings/<%= compData._id %>?_method=DELETE">
-                            <button class="btn btn-danger mt-3" 
-                            onsubmit="return confirm('Are you sure you want to delete this listing?');">Delete Listing</button>
+                        <form method = "POST" action="/listings/<%= compData._id %>?_method=DELETE" 
+                            onsubmit="return confirm('Are you sure you want to delete this listing?')">
+                            <button class="btn btn-danger mt-3">Delete Listing</button>
                         </form>
                     </div>
                 </div>
