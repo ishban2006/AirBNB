@@ -26,9 +26,10 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+//Root
 app.get("/", (req, res) => {
-    res.send("Hi Sexy!!!");
-    console.log("Response send");
+    res.send("Welcome to Home page");
+    console.log("Response send to Root");
 });
 
 //Index Route
