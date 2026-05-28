@@ -6,8 +6,7 @@ const Listing = require("./models/listings");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utility/wrapAsync");
-const expressError = require("./utility/expressError");
-const {listingSchema} = require("./schema");
+const {validateListing, notFound} = require("./middleware");
  
 main()
     .then(() => {
@@ -18,7 +17,7 @@ main()
     });
 
 async function main() {
-    await mongoose.connect(mongoURL);
+    await mongoose.connect(mongoURL);       //Connecting to Database
 }
 
 const path = require("path");
@@ -29,20 +28,19 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-//Root
+//Root Page
 app.get("/", (req, res) => {
     res.send("Welcome to Home page");
-    console.log("Response send to Root");
+    console.log("Root Page Displayed");
 });
 
-//Index Route
+//Index Page to view all listings
 app.get(
     "/listings", 
     wrapAsync(async (req, res) => {      
         const allListings = await Listing.find({});
-        // console.log(allListings);
         res.render("../views/listing/index", { allListings });
-        console.log("Request rendered to index.ejs");
+        console.log("Rendered Listings Page");
     })
 );
 
@@ -51,22 +49,9 @@ app.get(
     "/listings/createNew", 
     wrapAsync(async (req, res) => {
         res.render("../views/listing/createNew");
-        console.log("Request rendered to createNew.ejs");
+        console.log("Rendered Create Listing Form");
     })
 );
-
-//Middleware for Validation
-const validateListing = (req, res, next) => {
-    let result = listingSchema.validate(req.body);
-    let error = result.error;
-    console.log(error);
-    if (error) {
-        let errorMsg = error.details.map((el) => el.message).join(",");
-        throw new expressError(469, errorMsg);
-    }
-    else
-        next();
-}
 
 //Save the new listing in database
 app.post(
@@ -76,29 +61,29 @@ app.post(
         const newElem = new Listing (req.body.listing);
         await newElem.save();
         res.redirect("/listings");
-        console.log("Data saved in database");
+        console.log("New Listing Added Successfully");
     })
 ); 
 
 //Show Complete Info Route
 app.get(
     "/listings/:id", 
-    wrapAsync(async (req, res) => {             //Handling database errors
+    wrapAsync(async (req, res) => {             
         let {id} = req.params;         //id is created by mongodb
         const compData = await Listing.findById(id);
         res.render("../views/listing/showInfo", { compData });
-        console.log("Request rendered to showInfo.ejs");
+        console.log("Rendered Listing Details Page");
     })
 );
 
 //Edit Info
 app.get(
     "/listings/:id/edit", 
-    wrapAsync(async (req, res) => {
+    wrapAsync(async (req, res) => {     //Handling database errors
         let {id} = req.params;         
         const compData = await Listing.findById(id);
         res.render("../views/listing/editInfo", { compData });
-        console.log("Request rendered to editInfo.ejs");
+        console.log("Rendered Edit Listing Form");
     })
 );
 
@@ -107,13 +92,10 @@ app.put(
     "/listings/:id", 
     validateListing,
     wrapAsync(async (req, res) => {
-        if (!req.body.listing) {
-            throw new expressError(400, "Send Valid Data");
-        }
         let {id} = req.params;
-        await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individua values
-        console.log("Data edited successfully");
+        await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individual values
         res.redirect(`/listings/${id}`);
+        console.log("Listing Updated Successfully");
     })
 );
 
@@ -123,23 +105,15 @@ app.delete(
     wrapAsync(async (req, res) => {
         let {id} = req.params;
         const deleted = await Listing.findByIdAndDelete(id);  
-        console.log(`Listing : ${deleted.title} successfully deleted`);
         res.redirect("/listings");
+        console.log(`Listing (${deleted.title}) Deleted Successfully`);
     })
 );
 
-app.use((req, res, next) => {
-    console.log("Incorrect page requested");
-    next(new expressError(404, "Page Not Found"));
-});
+//For incorrect request
+app.use(notFound);
 
-//Middleware for error handling
-app.use((err, req, res, next) => {
-    let {statusCode = 500, message = "Chud Gae Guru"} = err;
-    console.log("Some Error Occured But Handled Properly");
-    res.status(statusCode).render("error.ejs", {err});
-});
-
+//Starting the server
 app.listen(8080, () => {
     console.log("server is listening to port 8080");
 });
