@@ -5,6 +5,8 @@ const mongoURL = "mongodb://127.0.0.1:27017/wander";
 const Listing = require("./models/listings");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAsync = require("./utility/wrapAsync");
+const expressError = require("./utility/expressError");
  
 main()
     .then(() => {
@@ -33,73 +35,97 @@ app.get("/", (req, res) => {
 });
 
 //Index Route
-app.get("/listings", async (req, res) => {      
-    const allListings = await Listing.find({});
-    // console.log(allListings);
-    res.render("../views/listing/index", { allListings });
-    console.log("Request rendered to index.ejs");
-});
+app.get(
+    "/listings", 
+    wrapAsync(async (req, res) => {      
+        const allListings = await Listing.find({});
+        // console.log(allListings);
+        res.render("../views/listing/index", { allListings });
+        console.log("Request rendered to index.ejs");
+    })
+);
 
 //Show form to add new listing
-app.get("/listings/createNew", async (req, res) => {
-    res.render("../views/listing/createNew");
-    console.log("Request rendered to createNew.ejs");
-});
+app.get(
+    "/listings/createNew", 
+    wrapAsync(async (req, res) => {
+        res.render("../views/listing/createNew");
+        console.log("Request rendered to createNew.ejs");
+    })
+);
 
 //Save the new listing in database
-app.post("/listings/createNew", async (req, res) => {
-    const newElem = new Listing (req.body.listing);
-    await newElem.save();
-    res.redirect("/listings");
-    console.log("Data saved in database");
-}); 
+app.post(
+    "/listings/createNew", 
+    wrapAsync(async (req, res, next) => {
+        if (!req.body.listing) {
+            throw new expressError(400, "Send Valid Data");
+        }
+        const newElem = new Listing (req.body.listing);
+        await newElem.save();
+        res.redirect("/listings");
+        console.log("Data saved in database");
+    })
+); 
 
 //Show Complete Info Route
-app.get("/listings/:id", async (req, res) => {     
-     let {id} = req.params;         //id is created by mongodb
-     const compData = await Listing.findById(id);
-     res.render("../views/listing/showInfo", { compData });
-     console.log("Request rendered to showInfo.ejs");
-});
+app.get(
+    "/listings/:id", 
+    wrapAsync(async (req, res) => {             //Handling database errors
+        let {id} = req.params;         //id is created by mongodb
+        const compData = await Listing.findById(id);
+        res.render("../views/listing/showInfo", { compData });
+        console.log("Request rendered to showInfo.ejs");
+    })
+);
 
 //Edit Info
-app.get("/listings/:id/edit", async (req, res) => {
-    let {id} = req.params;         
-    const compData = await Listing.findById(id);
-    res.render("../views/listing/editInfo", { compData });
-    console.log("Request rendered to editInfo.ejs");
-});
+app.get(
+    "/listings/:id/edit", 
+    wrapAsync(async (req, res) => {
+        let {id} = req.params;         
+        const compData = await Listing.findById(id);
+        res.render("../views/listing/editInfo", { compData });
+        console.log("Request rendered to editInfo.ejs");
+    })
+);
 
 //Save Edit Info
-app.put("/listings/:id", async (req, res) => {
-    let {id} = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individua values
-    res.redirect(`/listings/${id}`);
-    console.log("Data edited successfully");
-});
+app.put(
+    "/listings/:id", 
+    wrapAsync(async (req, res) => {
+        if (!req.body.listing) {
+            throw new expressError(400, "Send Valid Data");
+        }
+        let {id} = req.params;
+        await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individua values
+        console.log("Data edited successfully");
+        res.redirect(`/listings/${id}`);
+    })
+);
 
 //Delete a Listing
-app.delete("/listings/:id", async (req, res) => {
-    let {id} = req.params;
-    const deleted = await Listing.findByIdAndDelete(id);  
-    console.log(`Listing : ${deleted.title} successfully deleted`);
-    res.redirect("/listings");
+app.delete(
+    "/listings/:id", 
+    wrapAsync(async (req, res) => {
+        let {id} = req.params;
+        const deleted = await Listing.findByIdAndDelete(id);  
+        console.log(`Listing : ${deleted.title} successfully deleted`);
+        res.redirect("/listings");
+    })
+);
+
+app.use((req, res, next) => {
+    console.log("Incorrect page requested");
+    next(new expressError(404, "Page Not Found"));
 });
 
-// app.get("/testListing", async(req, res) => {
-//     let sampleList = new Listing({
-//         title : "My Palace",
-//         desription : "Full of Peace",
-//         image : "https://unsplash.com/photos/aerial-photography-of-brown-rock-formation-with-plants-Tslr2zdQdnw",
-//         price : 15000,
-//         location : "Panaji, Goa",
-//         country : "India",
-//     });
-
-//     await sampleList.save();
-//     console.log("Sample was Saved in collection");
-//     res.send("Test Successful");
-// });
+//Middleware for error handling
+app.use((err, req, res, next) => {
+    let {statusCode = 500, message = "Chud Gae Guru"} = err;
+    console.log("Some Error Occured But Handled Properly");
+    res.status(statusCode).send(message);
+});
 
 app.listen(8080, () => {
     console.log("server is listening to port 8080");
