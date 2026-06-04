@@ -76,6 +76,11 @@ body {
     background-color: #FDFDFD !important;
 }
 
+.brd {
+    border: 1px solid #171314 !important;
+    border-radius: 0.7rem !important;
+}
+
 /* .card:hover {
     background-color: #e0e0e03f !important;
 } */

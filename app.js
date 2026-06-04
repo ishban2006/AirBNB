@@ -6,7 +6,9 @@ const Listing = require("./models/listings");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utility/wrapAsync");
-const {validateListing, notFound} = require("./middleware");
+const {validateListing, validateReview} = require("./middleware");
+const {notFound, dispError} = require("./middleware");
+const Review = require("./models/review");
  
 main()
     .then(() => {
@@ -70,7 +72,7 @@ app.get(
     "/listings/:id", 
     wrapAsync(async (req, res) => {             
         let {id} = req.params;         //id is created by mongodb
-        const compData = await Listing.findById(id);
+        const compData = await Listing.findById(id).populate("reviews");
         res.render("../views/listing/showInfo", { compData });
         console.log("Rendered Listing Details Page");
     })
@@ -110,8 +112,39 @@ app.delete(
     })
 );
 
+//Add a Review
+app.post(
+    "/listings/:id/reviews",
+    validateReview,
+    wrapAsync(async (req, res) => {
+        let {id} = req.params;
+        let listing = await Listing.findById(id);
+        let newReview = new Review(req.body.review);
+        listing.reviews.push(newReview);
+        await newReview.save();
+        await listing.save();
+        console.log("Review Added Successfully");
+        res.redirect(`/listings/${id}`);
+    })
+);
+
+//Delete a Review
+app.delete(
+    "/listings/:id/reviews/:reviewId", 
+    wrapAsync(async (req, res) => {
+        let {id, reviewId} = req.params;
+        await Listing.findByIdAndUpdate(id, {$pull : {reviews : reviewId}}); 
+        const del = await Review.findByIdAndDelete(reviewId);
+        res.redirect(`/listings/${id}`);
+        console.log(`Review (${del.title}) Deleted Successfully`);
+    })
+);
+
 //For incorrect request
 app.use(notFound);
+
+//Displaying Errors
+app.use(dispError);
 
 //Starting the server
 app.listen(8080, () => {
