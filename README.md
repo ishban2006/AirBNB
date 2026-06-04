@@ -80,4 +80,10 @@ middleware.js
 schema.js
 ```
 
+## The Problem We're Solving
+
+Most property listing platforms focus only on displaying listings. WanderLust goes beyond that by creating a complete rental discovery experience where users can browse properties, manage listings, and share reviews in one place.
+
+By combining listing management, reviews & ratings, validation, and robust error handling, the platform delivers a reliable and user-friendly experience for both property owners and visitors.
+
 Built by Ishaan Bansal
