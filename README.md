@@ -57,15 +57,12 @@ http://localhost:8080
 
 ## Features
 
-* Create, Read, Update, Delete (CRUD) listings
-* Add and manage reviews & ratings
-* Client-side form validation
-* Server-side Joi validation
-* Custom error handling
-* Async error wrappers
-* Responsive Bootstrap UI
-* MongoDB database integration
-* Review-listing relationship using Mongoose references
+- Create, edit, view, and delete listings
+- Add and manage reviews
+- Joi and Bootstrap validation
+- Custom error handling
+- Responsive design
+- MongoDB-powered backend
 
 ## Project Structure
 
@@ -85,5 +82,3 @@ schema.js
 Most property listing platforms focus only on displaying listings. WanderLust goes beyond that by creating a complete rental discovery experience where users can browse properties, manage listings, and share reviews in one place.
 
 By combining listing management, reviews & ratings, validation, and robust error handling, the platform delivers a reliable and user-friendly experience for both property owners and visitors.
-
-Built by Ishaan Bansal
