@@ -1,110 +1,83 @@
-# Airbnb Clone Project
+# WanderLust
 
-## 📌 Overview
+A full-stack Airbnb-inspired listing platform built with Node.js, Express, MongoDB, EJS, and Bootstrap.
 
-A full-stack Airbnb-style web application built using Node.js, Express.js, MongoDB, Mongoose, EJS, and Bootstrap.
+## What it does
 
-Users can create, view, edit, and delete property listings through a responsive interface following RESTful routing principles.
+### Explore Listings
 
----
+Browse properties with detailed information including images, location, pricing, and descriptions.
 
-# ✨ Features
+### Create & Manage Listings
 
-* CRUD operations for listings
-* Responsive UI using Bootstrap
-* Dynamic EJS templating
-* Reusable layouts and partials
-* Client-side validation using Bootstrap
-* Server-side validation using Joi
-* Custom error handling middleware
-* Async wrapper for handling route errors
-* Method override for PUT and DELETE requests
-* MongoDB integration using Mongoose
+Add, edit, and delete listings through a simple and responsive interface.
 
----
+### Reviews & Ratings
 
-# ⚠️ Error Handling
+Users can submit ratings and reviews for listings, view feedback from other users, and delete reviews when needed.
 
-* Custom Express error class
-* Centralized error middleware
-* Joi validation errors
-* Mongoose validation errors
-* Custom error page (`error.ejs`)
+### Data Validation
 
----
+Client-side validation using Bootstrap and server-side validation using Joi ensure reliable and secure data handling.
 
-# 📂 Project Structure
+### Error Handling
 
-```text id="pl3my0"
-AIRBNB
-│
-├── models/
-├── public/
-│   ├── css/
-│   └── js/
-├── utility/
-├── views/
-│   ├── includes/
-│   ├── layouts/
-│   └── listing/
-│
-├── app.js
-├── schema.js
-└── README.md
-```
+Custom error classes, centralized error middleware, and async wrappers provide robust error management throughout the application.
 
----
+## Stack
 
-# 🛠️ Tech Stack
+| Layer      | Tech                      |
+| ---------- | ------------------------- |
+| Frontend   | EJS, Bootstrap            |
+| Backend    | Node.js, Express.js       |
+| Database   | MongoDB, Mongoose         |
+| Validation | Joi, Bootstrap Validation |
+| Templating | EJS-Mate                  |
+| Utilities  | Method-Override           |
 
-## Frontend
+## Setup
 
-* HTML
-* CSS
-* Bootstrap
-* EJS
-
-## Backend
-
-* Node.js
-* Express.js
-
-## Database
-
-* MongoDB
-* Mongoose
-
-## Validation & Utilities
-
-* Joi
-* Method-Override
-* EJS-Mate
-
----
-
-# 🚀 Run Project
-
-## Install Dependencies
-
-```bash id="d6vjlwm"
+```bash
+git clone <repository-url>
+cd AirBNB
 npm install
 ```
 
-## Start Server
+Run:
 
-```bash id="o8jlwm"
-npm run dev
+```bash
+npx nodemon app.js
 ```
 
-or
+Visit:
 
-```bash id="njlwm7"
-nodemon app.js
+```text
+http://localhost:8080
 ```
 
----
+## Features
 
-# 📌 Author
+* Create, Read, Update, Delete (CRUD) listings
+* Add and manage reviews & ratings
+* Client-side form validation
+* Server-side Joi validation
+* Custom error handling
+* Async error wrappers
+* Responsive Bootstrap UI
+* MongoDB database integration
+* Review-listing relationship using Mongoose references
 
-**Ishaan Bansal**
-DTU CSE Student
+## Project Structure
+
+```text
+models/
+views/
+public/
+utility/
+
+app.js
+middleware.js
+schema.js
+```
+
+Built by Ishaan Bansal
