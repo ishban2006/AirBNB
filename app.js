@@ -10,7 +10,7 @@ const {validateListing, validateReview} = require("./middleware");
 const {notFound, dispError} = require("./middleware");
 const Review = require("./models/review");
  
-main()
+main() 
     .then(() => {
         console.log("Connected to DataBase");
     })

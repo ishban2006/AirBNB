@@ -4,7 +4,8 @@
   "description": "A production-style full-stack application that enables users to discover, list, and book rental properties. <br> Features include authentication, property management, and booking workflows, designed with a focus on usability and scalability.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
