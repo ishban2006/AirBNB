@@ -46,7 +46,7 @@ npm install
 Run:
 
 ```bash
-npx nodemon app.js
+npm run dev
 ```
 
 Visit:
