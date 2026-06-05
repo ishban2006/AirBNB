@@ -81,6 +81,10 @@ body {
     border-radius: 0.7rem !important;
 }
 
+.brd:hover {
+    background-color: #e0e0e03f !important;
+}
+
 /* .card:hover {
     background-color: #e0e0e03f !important;
 } */

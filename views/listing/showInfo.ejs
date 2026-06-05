@@ -34,8 +34,10 @@
             <h3>Leave a Review</h3>
             <form method="POST" action="/listings/<%= compData._id %>/reviews" class="needs-validation" novalidate>
                 <div class="mb-3 mt-3">
-                    <label for="rating" class="form-label">Add Rating</label>
-                    <input type="range" class="form-range" id="rating" name="review[rating]" min="1" max="5" required>
+                    <label for="rating" class="form-label">Rating:
+                        <span id="ratingValue">3</span>/5
+                    </label>
+                    <input type="range" min="1" max="5" value="3" id="rating" name="review[rating]" class="form-range" oninput="document.getElementById('ratingValue').textContent = this.value" required>
                 </div>
                 <div class="mb-3 mt-3">
                     <label for="comment" class="form-label">Your Review</label>
@@ -47,6 +49,7 @@
                 <button type="submit" class="btn btn-primary">Submit Review</button>
             </form>
 
+            <br><br>
             <hr>
             <h3>Reviews</h3>
             <br>
@@ -57,7 +60,11 @@
                     <% compData.reviews.forEach(review => { %>
                         <div class="card col-5 ms-3 mb-3 brd">
                             <div class="card-body p-2 d-flex flex-column">
-                                <h5 class="card-title">Rating: <%= review.rating %> / 5 ⭐️</h5>
+                                <p>
+                                    <% for (let i = 0; i < review.rating; i++) { %>
+                                        <i class="fas fa-star fs-6"></i>
+                                    <% } %>
+                                </p>
                                 <p class="card-text"><%= review.comment %></p>
 
                                 <form class="mt-auto" method="POST" action="/listings/<%= compData._id %>/reviews/<%= review._id %>?_method=DELETE" 
