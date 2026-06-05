@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const mongoURL = "mongodb://127.0.0.1:27017/wander";
 const methodOverride = require("method-override");
@@ -28,11 +29,14 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+//Parse Cookies
+app.use(cookieParser("secretcode"));
 
 //Root Page
 app.get("/", (req, res) => {
-    res.send("Welcome to Home page");
-    console.log("Root Page Displayed");
+    console.dir(req.signedCookies);
+    let {Name = "Bhosda"} = req.signedCookies;
+    res.send(`Welcome to Home page ${Name}`);
 });
 
 //Listings
@@ -40,6 +44,13 @@ app.use("/listings", listingR);
 
 //Reviews
 app.use("/listings/:id/reviews", reviewR)
+
+//Send Cookies
+app.get("/getCookies", (req, res) => {
+    res.cookie("Name", "Ishaan", { signed : true });
+    res.cookie("College", "DTU", { signed : true });
+    res.send("Server has sent u some cookies");
+});
 
 //For incorrect request
 app.use(notFound);
