@@ -96,7 +96,7 @@ body {
 }
 
 .card-body {
-    padding: 0 !important;
+    padding: 1rem !important;
     margin-left: 10px;
     margin-bottom: 4px;
 }
@@ -117,6 +117,31 @@ body {
 .card-img-overlay:hover {
     opacity: 0.5;
     background-color: #e0e0e064;
+}
+
+@media (max-width: 767px) {
+    .navbar-collapse {
+        background-color: #FDFDFD;
+        margin-top: 0.5rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.75rem 0;
+        font-size: 1.1rem !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .card {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
 }
 
 /* Buttons */
