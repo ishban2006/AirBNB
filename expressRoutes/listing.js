@@ -30,8 +30,8 @@ router.post(
     wrapAsync(async (req, res, next) => {
         const newElem = new Listing (req.body.listing);
         await newElem.save();
+        req.flash("success", "New Listing Created Successfully!!");
         res.redirect("/listings");
-        console.log("New Listing Added Successfully");
     })
 ); 
 
@@ -41,6 +41,10 @@ router.get(
     wrapAsync(async (req, res) => {             
         let {id} = req.params;         //id is created by mongodb
         const compData = await Listing.findById(id).populate("reviews");
+        if (!compData) {
+            req.flash("error", "Listing Does not exist");
+            return res.redirect("/listings");
+        }
         res.render("../views/listing/showInfo", { compData });
         console.log("Rendered Listing Details Page");
     })
@@ -52,6 +56,10 @@ router.get(
     wrapAsync(async (req, res) => {     //Handling database errors
         let {id} = req.params;         
         const compData = await Listing.findById(id);
+        if (!compData) {
+            req.flash("error", "Listing Does not exist");
+            return res.redirect("/listings");
+        }
         res.render("../views/listing/editInfo", { compData });
         console.log("Rendered Edit Listing Form");
     })
@@ -64,8 +72,8 @@ router.put(
     wrapAsync(async (req, res) => {
         let {id} = req.params;
         await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individual values
+        req.flash("success", "Information Edited Successfully!!");
         res.redirect(`/listings/${id}`);
-        console.log("Listing Updated Successfully");
     })
 );
 
@@ -74,9 +82,9 @@ router.delete(
     "/:id", 
     wrapAsync(async (req, res) => {
         let {id} = req.params;
-        const deleted = await Listing.findByIdAndDelete(id);  
+        const deleted = await Listing.findByIdAndDelete(id); 
+        req.flash("success", "Listing Deleted Successfully!!"); 
         res.redirect("/listings");
-        console.log(`Listing (${deleted.title}) Deleted Successfully`);
     })
 );
 

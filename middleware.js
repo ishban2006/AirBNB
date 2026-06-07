@@ -43,3 +43,10 @@ module.exports.dispError = (err, req, res, next) => {
     console.log("Error handled:", message);
     res.status(statusCode).render("error.ejs", {err});
 }
+
+//Show successful addition of a listing
+module.exports.flashSuccess = (req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+}

@@ -1,5 +1,4 @@
 <% layout("/layouts/boilerplate") %>
-<body>
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1 g-4 mt-4">
         <% for (let elem of allListings) { %>
             <a href="/listings/<%= elem._id %>" class = "card-link">
@@ -16,17 +15,3 @@
             </a>
         <% } %>
     </div>
-    
-    <!-- <ul>
-        <% for (let elem of allListings) { %>
-            <li><a href="/listings/<%= elem._id %>"><%= elem.title %></a></li>  <!-- Info about the listing -->
-            <!-- <li><%= elem.description %></li>
-            <img src="<%= elem.image.url %>" alt="<%= elem.title %>" width="200px">
-            <hr>
-        <% } %>
-    </ul> --> 
-
-    <!-- <form method="GET" action="/listings/createNew">
-        <button>Create New Listing</button>
-    </form> -->
-</body>
