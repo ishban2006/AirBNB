@@ -7,9 +7,13 @@ const mongoose = require("mongoose");
 const mongoURL = "mongodb://127.0.0.1:27017/wander";
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const {notFound, dispError, flashSuccess} = require("./middleware");
+const passport = require("passport");
+const localStrategy = require("passport-local");
 const listingR = require("./expressRoutes/listing");
 const reviewR = require("./expressRoutes/review");
+const userR = require("./expressRoutes/user");
+const {notFound, dispError, flashSuccess} = require("./middleware");
+const User = require("./models/user");
  
 main() 
     .then(() => {
@@ -41,9 +45,6 @@ const sessOption = {
   }
 };
 
-// //Parse Cookies
-// app.use(cookieParser("secretcode"));
-
 //Root Page
 app.get("/", (req, res) => {
     console.dir(req.signedCookies);
@@ -55,6 +56,14 @@ app.get("/", (req, res) => {
 app.use(expressSession(sessOption));
 app.use(flash());
 
+//Password Mgmt.
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //To flash success message 
 app.use(flashSuccess);
 
@@ -63,6 +72,9 @@ app.use("/listings", listingR);
 
 //Reviews
 app.use("/listings/:id/reviews", reviewR)
+
+//SignUp
+app.use("/signup", userR);
 
 //For incorrect request
 app.use(notFound);
