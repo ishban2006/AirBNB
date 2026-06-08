@@ -1,0 +1,29 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <div class="row">
+        <div class="col-10 col-md-8 mx-auto">
+            <h1 class="mb-4 mt-5">Login to AirBNB</h1>
+            <form method="POST" action="/login" class="needs-validation" novalidate> 
+                <div class="form-group mb-3">
+                    <label for="username" class="form-label"><b>Username:</b></label>
+                    <input type="text" id="username" placeholder="Enter username" name="username" required class="form-control">
+                    <div class="invalid-feedback">
+                        Please enter a username.
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password" class="form-label"><b>Password:</b></label>
+                    <input type="password" id="password" placeholder="Enter password" name="password" required class="form-control">
+                    <div class="invalid-feedback">
+                        Please enter a password.
+                    </div>
+                </div>
+
+                <div class="d-grid d-md-block mt-5 mb-5 mb-md-0">
+                    <button type="submit" class="btn btn-success btn-login">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

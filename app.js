@@ -45,13 +45,6 @@ const sessOption = {
   }
 };
 
-//Root Page
-app.get("/", (req, res) => {
-    console.dir(req.signedCookies);
-    let {Name = "Bhosda"} = req.signedCookies;
-    res.send(`Welcome to Home page ${Name}`);
-});
-
 //Session Info
 app.use(expressSession(sessOption));
 app.use(flash());
@@ -67,6 +60,11 @@ passport.deserializeUser(User.deserializeUser());
 //To flash success message 
 app.use(flashSuccess);
 
+//Root Page
+app.get("/", (req, res) => {
+    res.render("../views/home.ejs");
+});
+
 //Listings
 app.use("/listings", listingR);
 
@@ -74,7 +72,10 @@ app.use("/listings", listingR);
 app.use("/listings/:id/reviews", reviewR)
 
 //SignUp
-app.use("/signup", userR);
+app.use("/", userR);
+
+//Login
+app.use("/", userR);
 
 //For incorrect request
 app.use(notFound);

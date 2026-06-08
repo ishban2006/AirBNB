@@ -173,6 +173,10 @@ body {
     background-color: #28a746c9 !important;
 }
 
+.btn-login {
+    background-color: #007bffc9 !important;
+}
+
 /* Forms */
 /* Remove arrows from Chrome, Safari, Edge, Opera */
 input[type="number"]::-webkit-outer-spin-button,
