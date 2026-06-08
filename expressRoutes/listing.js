@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listings");
 const wrapAsync = require("../utility/wrapAsync");
-const {validateListing, isLoggedIN} = require("../middleware");
+const {validateListing, isLoggedIN, isOwner} = require("../middleware");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 
@@ -29,9 +29,11 @@ router.get(
 //Save the new listing in database
 router.post(
     "/createNew", 
+    isLoggedIN,
     validateListing,
     wrapAsync(async (req, res, next) => {
         const newElem = new Listing (req.body.listing);
+        newElem.owner = req.user._id;
         await newElem.save();
         req.flash("success", "New Listing Created Successfully!!");
         res.redirect("/listings");
@@ -43,12 +45,25 @@ router.get(
     "/:id", 
     wrapAsync(async (req, res) => {             
         let {id} = req.params;         //id is created by mongodb
-        const compData = await Listing.findById(id).populate("reviews");
+        const compData = await Listing.findById(id).
+            populate({
+                path: "reviews",
+                populate: {
+                    path: "owner"
+                }
+            }).
+            populate("owner");
         if (!compData) {
             req.flash("error", "Listing Does not exist");
             return res.redirect("/listings");
         }
-        res.render("../views/listing/showInfo", { compData });
+        let hasReviewed = false;
+        if (req.user) {
+            hasReviewed = compData.reviews.some(review => {
+                return review.owner._id.equals(req.user._id);
+            });
+        }
+        res.render("../views/listing/showInfo", { compData, hasReviewed });
         console.log("Rendered Listing Details Page");
     })
 );
@@ -57,6 +72,7 @@ router.get(
 router.get(
     "/:id/edit", 
     isLoggedIN,
+    isOwner,
     wrapAsync(async (req, res) => {     //Handling database errors
         let {id} = req.params;         
         const compData = await Listing.findById(id);
@@ -72,6 +88,8 @@ router.get(
 //Save Edit Info
 router.put(
     "/:id", 
+    isLoggedIN,
+    isOwner,
     validateListing,
     wrapAsync(async (req, res) => {
         let {id} = req.params;
@@ -85,6 +103,7 @@ router.put(
 router.delete(
     "/:id", 
     isLoggedIN,
+    isOwner,
     wrapAsync(async (req, res) => {
         let {id} = req.params;
         const deleted = await Listing.findByIdAndDelete(id); 

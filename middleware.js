@@ -1,3 +1,5 @@
+const Review = require("./models/review");
+const Listing = require("./models/listings");
 const { listingSchema, reviewSchema } = require("./schema");
 const expressError = require("./utility/expressError");
 const passport = require("passport");
@@ -64,7 +66,45 @@ module.exports.isLoggedIN = (req, res, next) => {
     return next();
 }
 
+//Save last owner path
 module.exports.saveURL = (req, res, next) => {
     res.locals.redirURL = req.session.redirectURL;
     return next();
+}
+
+//Authorize User for edit and delete listing
+module.exports.isOwner = async (req, res, next) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    if (!listing.owner.equals(res.locals.currUser._id)) {
+        req.flash("error", "You are not the owner of this listing");
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
+}
+
+//Authorize User to delete a review
+module.exports.isReviewOwner = async (req, res, next) => {
+    let {id, reviewId} = req.params;
+    let review = await Review.findById(reviewId);
+    if (!review.owner.equals(req.user._id)) {
+        req.flash("error", "You are not the owner of this review");
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
+}
+
+//To check if a user has already reviewed a listing or not
+module.exports.hasReviewed = async(req, res, next) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    const existingReview = await Review.findOne({
+        owner: req.user._id,
+        _id: { $in: listing.reviews }
+    });
+    if (existingReview) {
+        req.flash("error", "You have already reviewed this listing");
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
 }

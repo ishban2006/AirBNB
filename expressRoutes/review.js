@@ -3,17 +3,19 @@ const router = express.Router({ mergeParams : true});   //To pass params of pare
 const Listing = require("../models/listings");
 const Review = require("../models/review");
 const wrapAsync = require("../utility/wrapAsync");
-const {validateReview, isLoggedIN} = require("../middleware");
+const {validateReview, isLoggedIN, isReviewOwner, hasReviewed} = require("../middleware");
 
 //Add a Review
 router.post(
     "/",
     isLoggedIN,
+    hasReviewed,
     validateReview,
-    wrapAsync(async (req, res) => {
+    wrapAsync(async (req, res) => { 
         let {id} = req.params;
         let listing = await Listing.findById(id);
         let newReview = new Review(req.body.review);
+        newReview.owner = req.user._id;
         listing.reviews.push(newReview);
         await newReview.save();
         await listing.save();
@@ -26,6 +28,7 @@ router.post(
 router.delete(
     "/:reviewId", 
     isLoggedIN,
+    isReviewOwner,
     wrapAsync(async (req, res) => {
         let {id, reviewId} = req.params;
         await Listing.findByIdAndUpdate(id, {$pull : {reviews : reviewId}}); 
