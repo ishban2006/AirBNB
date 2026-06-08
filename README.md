@@ -1,52 +1,86 @@
 # WanderLust
 
-A full-stack Airbnb-inspired listing platform built with Node.js, Express, MongoDB, EJS, and Bootstrap.
+A full-stack Airbnb-inspired web application built with Node.js, Express.js, MongoDB, EJS, Bootstrap, and Passport.js.
 
 ## What it does
 
 ### Explore Listings
 
-Browse properties with detailed information including images, location, pricing, and descriptions.
+Browse rental properties with images, descriptions, locations, and pricing details.
 
-### Create & Manage Listings
+### Manage Listings
 
-Add, edit, and delete listings through a simple and responsive interface.
+Authenticated users can create, edit, and delete their own listings through an intuitive interface.
 
 ### Reviews & Ratings
 
-Users can submit ratings and reviews for listings, view feedback from other users, and delete reviews when needed.
+Users can leave ratings and reviews on listings, view feedback from others, and remove reviews when required.
 
-### Data Validation
+### Authentication & Authorization
 
-Client-side validation using Bootstrap and server-side validation using Joi ensure reliable and secure data handling.
+Secure user registration, login, logout, session management, and route protection using Passport.js.
 
-### Error Handling
+### Validation & Error Handling
 
-Custom error classes, centralized error middleware, and async wrappers provide robust error management throughout the application.
+Both client-side and server-side validation ensure reliable data entry while centralized error handling improves application stability.
 
-## Stack
+---
 
-| Layer      | Tech                      |
-| ---------- | ------------------------- |
-| Frontend   | EJS, Bootstrap            |
-| Backend    | Node.js, Express.js       |
-| Database   | MongoDB, Mongoose         |
-| Validation | Joi, Bootstrap Validation |
-| Templating | EJS-Mate                  |
-| Utilities  | Method-Override           |
+## Tech Stack
 
-## Setup
+| Layer | Technology |
+|---------|------------|
+| Frontend | EJS, Bootstrap |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Authentication | Passport.js, Passport-Local |
+| Validation | Joi |
+| Sessions | Express-Session |
+| Flash Messages | Connect-Flash |
+| Templating | EJS-Mate |
+
+---
+
+## Features
+
+- User Signup, Login & Logout
+- Authentication using Passport.js
+- Create, Read, Update & Delete Listings
+- Add and Delete Reviews
+- Listing-Review Relationships
+- Route Authorization & Protected Actions
+- Joi Validation
+- Flash Messages
+- Custom Error Handling
+- Responsive UI with Bootstrap
+
+---
+
+## Installation
+
+Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/ishban2006/AirBNB.git
 cd AirBNB
+```
+
+Install dependencies:
+
+```bash
 npm install
 ```
 
-Run:
+Start the application:
 
 ```bash
 npm run dev
+```
+
+or
+
+```bash
+node app.js
 ```
 
 Visit:
@@ -55,30 +89,55 @@ Visit:
 http://localhost:8080
 ```
 
-## Features
-
-- Create, edit, view, and delete listings
-- Add and manage reviews
-- Joi and Bootstrap validation
-- Custom error handling
-- Responsive design
-- MongoDB-powered backend
+---
 
 ## Project Structure
 
 ```text
-models/
-views/
-public/
-utility/
-
-app.js
-middleware.js
-schema.js
+AirBNB/
+│
+├── expressRoutes/
+│   ├── listing.js
+│   ├── review.js
+│   └── user.js
+│
+├── models/
+│   ├── listings.js
+│   ├── review.js
+│   └── user.js
+│
+├── views/
+│   ├── includes/
+│   ├── layouts/
+│   ├── listing/
+│   └── user/
+│
+├── public/
+├── utility/
+├── init/
+│
+├── app.js
+├── middleware.js
+├── schema.js
+├── package.json
+└── README.md
 ```
+
+---
 
 ## The Problem We're Solving
 
-Most property listing platforms focus only on displaying listings. WanderLust goes beyond that by creating a complete rental discovery experience where users can browse properties, manage listings, and share reviews in one place.
+Finding, managing, and reviewing rental properties should be simple.
 
-By combining listing management, reviews & ratings, validation, and robust error handling, the platform delivers a reliable and user-friendly experience for both property owners and visitors.
+WanderLust provides a clean and intuitive platform where users can:
+
+- Discover unique rental listings
+- Share experiences through reviews and ratings
+- Manage property information securely
+- Access personalized features through authentication
+
+The goal is to create a seamless property discovery experience while maintaining data integrity, security, and usability.
+
+---
+
+Built by **Ishaan Bansal**
