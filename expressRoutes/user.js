@@ -5,7 +5,7 @@ const Review = require("../models/review");
 const User = require("../models/user");
 const wrapAsync = require("../utility/wrapAsync");
 const passport = require("passport");
-const { isLoggedIN, saveURL } = require("../middleware");
+const { isLoggedIN, saveURL } = require("../config/middleware");
 
 router.get("/signup", (req, res) => {
     res.render("user/signup.ejs");

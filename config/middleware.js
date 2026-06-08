@@ -1,7 +1,7 @@
-const Review = require("./models/review");
-const Listing = require("./models/listings");
-const { listingSchema, reviewSchema } = require("./schema");
-const expressError = require("./utility/expressError");
+const Review = require("../models/review");
+const Listing = require("../models/listings");
+const { listingSchema, reviewSchema } = require("../schema");
+const expressError = require("../utility/expressError");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 

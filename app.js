@@ -3,31 +3,19 @@ const app = express();
 const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
-const mongoose = require("mongoose");
-const mongoURL = "mongodb://127.0.0.1:27017/wander";
+const {configDB} = require("./config/db");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const passport = require("passport");
-const localStrategy = require("passport-local");
+const {configPassport} = require("./config/passport");
 const listingR = require("./expressRoutes/listing");
 const reviewR = require("./expressRoutes/review");
 const userR = require("./expressRoutes/user");
-const {notFound, dispError, flashSuccess} = require("./middleware");
-const User = require("./models/user");
- 
-main() 
-    .then(() => {
-        console.log("Connected to DataBase");
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-
-async function main() {
-    await mongoose.connect(mongoURL);       //Connecting to Database
-}
-
+const {notFound, dispError, flashSuccess} = require("./config/middleware");
 const path = require("path");
+
+configDB();
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended : true}));     //To parse data of an id
@@ -35,7 +23,7 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 const sessOption = {
-  secret: 'keyboard cat',
+  secret: 'mysecretcode',
   resave: false,
   saveUninitialized: true,
   cookie : {
@@ -52,17 +40,14 @@ app.use(flash());
 //Password Mgmt.
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new localStrategy(User.authenticate()));
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+configPassport();
 
 //To flash success message 
 app.use(flashSuccess);
 
 //Root Page
 app.get("/", (req, res) => {
-    res.render("../views/home.ejs");
+    res.render("home");
 });
 
 //Listings

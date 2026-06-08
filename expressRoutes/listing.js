@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listings");
 const wrapAsync = require("../utility/wrapAsync");
-const {validateListing, isLoggedIN, isOwner} = require("../middleware");
+const {validateListing, isLoggedIN, isOwner} = require("../config/middleware");
 const passport = require("passport");
 const localStrategy = require("passport-local");
 
