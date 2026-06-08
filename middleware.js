@@ -57,9 +57,14 @@ module.exports.flashSuccess = (req, res, next) => {
 //To authenticate a user
 module.exports.isLoggedIN = (req, res, next) => {
     if (!req.isAuthenticated()) {
-        req.session.redirectURL = req.originalUrl;
+        req.session.redirectURL = req.originalUrl;      //Redirect to page which user was looking into
         req.flash("error", "You must be logged in");
         return res.redirect("/login");
     }
+    return next();
+}
+
+module.exports.saveURL = (req, res, next) => {
+    res.locals.redirURL = req.session.redirectURL;
     return next();
 }

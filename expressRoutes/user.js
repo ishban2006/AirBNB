@@ -5,6 +5,7 @@ const Review = require("../models/review");
 const User = require("../models/user");
 const wrapAsync = require("../utility/wrapAsync");
 const passport = require("passport");
+const { isLoggedIN, saveURL } = require("../middleware");
 
 router.get("/signup", (req, res) => {
     res.render("user/signup.ejs");
@@ -36,13 +37,15 @@ router.get("/login", (req, res) => {
 }); 
 
 router.post("/login",
+    saveURL,
     passport.authenticate("local", {
         failureRedirect: "/login",
         failureFlash: true
     }),
     wrapAsync(async (req, res) => {
         req.flash("success", "Welcome Back to AirBNB");
-        res.redirect();
+        let redirectLink = res.locals.redirURL || "/listings";
+        res.redirect(redirectLink);
     })
 );
 
