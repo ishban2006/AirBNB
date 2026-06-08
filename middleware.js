@@ -1,5 +1,7 @@
 const { listingSchema, reviewSchema } = require("./schema");
 const expressError = require("./utility/expressError");
+const passport = require("passport");
+const localStrategy = require("passport-local");
 
 // Joi Validation Middleware For Listing
 module.exports.validateListing = (req, res, next) => {
@@ -48,5 +50,16 @@ module.exports.dispError = (err, req, res, next) => {
 module.exports.flashSuccess = (req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
     next();
+}
+
+//To authenticate a user
+module.exports.isLoggedIN = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        req.session.redirectURL = req.originalUrl;
+        req.flash("error", "You must be logged in");
+        return res.redirect("/login");
+    }
+    return next();
 }

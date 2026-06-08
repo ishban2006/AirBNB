@@ -17,13 +17,18 @@ router.post("/signup",
             const newUser = new User({username, email});
             let registered = await User.register(newUser, password);
             console.log(registered);
-            req.flash("success", "Welcome to AirBNB");
-            res.redirect("/listings");
+            req.login(registered, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                req.flash("success", "Welcome To AirBNB");
+                res.redirect("/listings");
+            })
         } catch(err) {
             req.flash("error", err.message);
             res.redirect("/signup");
         }
-    })
+    }) 
 );
 
 router.get("/login", (req, res) => {
@@ -37,8 +42,18 @@ router.post("/login",
     }),
     wrapAsync(async (req, res) => {
         req.flash("success", "Welcome Back to AirBNB");
-        res.redirect("/listings");
+        res.redirect();
     })
 );
+
+router.get("/logout", (req, res, next) => {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        req.flash("success", "You are Logged Out");
+        res.redirect("/listings");
+    });
+}); 
 
 module.exports = router;

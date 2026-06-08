@@ -177,6 +177,15 @@ body {
     background-color: #007bffc9 !important;
 }
 
+.signUPlink {
+    color: #8c5f8d !important;
+    text-decoration: none;
+}
+
+.signUPlink:hover {
+    text-decoration: underline;
+}
+
 /* Forms */
 /* Remove arrows from Chrome, Safari, Edge, Opera */
 input[type="number"]::-webkit-outer-spin-button,

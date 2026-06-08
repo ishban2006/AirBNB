@@ -3,11 +3,12 @@ const router = express.Router({ mergeParams : true});   //To pass params of pare
 const Listing = require("../models/listings");
 const Review = require("../models/review");
 const wrapAsync = require("../utility/wrapAsync");
-const {validateReview} = require("../middleware");
+const {validateReview, isLoggedIN} = require("../middleware");
 
 //Add a Review
 router.post(
     "/",
+    isLoggedIN,
     validateReview,
     wrapAsync(async (req, res) => {
         let {id} = req.params;
@@ -24,6 +25,7 @@ router.post(
 //Delete a Review
 router.delete(
     "/:reviewId", 
+    isLoggedIN,
     wrapAsync(async (req, res) => {
         let {id, reviewId} = req.params;
         await Listing.findByIdAndUpdate(id, {$pull : {reviews : reviewId}}); 

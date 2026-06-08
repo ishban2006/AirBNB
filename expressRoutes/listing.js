@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Listing = require("../models/listings");
 const wrapAsync = require("../utility/wrapAsync");
-const {validateListing} = require("../middleware");
+const {validateListing, isLoggedIN} = require("../middleware");
+const passport = require("passport");
+const localStrategy = require("passport-local");
 
 //Index Page to view all listings
 router.get(
@@ -16,7 +18,8 @@ router.get(
 
 //Show form to add new listing
 router.get(
-    "/createNew", 
+    "/createNew",
+    isLoggedIN, 
     wrapAsync(async (req, res) => {
         res.render("../views/listing/createNew");
         console.log("Rendered Create Listing Form");
@@ -53,6 +56,7 @@ router.get(
 //Edit Info
 router.get(
     "/:id/edit", 
+    isLoggedIN,
     wrapAsync(async (req, res) => {     //Handling database errors
         let {id} = req.params;         
         const compData = await Listing.findById(id);
@@ -80,6 +84,7 @@ router.put(
 //Delete a Listing
 router.delete(
     "/:id", 
+    isLoggedIN,
     wrapAsync(async (req, res) => {
         let {id} = req.params;
         const deleted = await Listing.findByIdAndDelete(id); 

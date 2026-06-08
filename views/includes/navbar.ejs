@@ -12,13 +12,22 @@
             
             <!-- Collapsible Navbar Content -->
             <div class="collapse navbar-collapse mt-3 mt-md-0" id="navbarNavAltMarkup">
-                <div class="navbar-nav ms-auto gap-2">
+                <div class="navbar-nav gap-2">
                     <a class="nav-link" href="/">Home</a>
                     <a class="nav-link" href="/listings">All Listings</a>
                     <a class="nav-link" href="/listings/createNew">Add New Listing</a>
                 </div>
+                <div class="navbar-nav ms-auto gap-2">
+                    <% if (!currUser) { %>
+                        <a class="nav-link" href="/signup">Sign Up</a>
+                        <a class="nav-link" href="/login">Login</a>
+                    <% } %>
+                    <% if (currUser) { %>
+                        <a class="nav-link" onclick="return confirm('Are you sure you want to log out?')"href="/logout">Logout</a>
+                    <% } %>
+                </div>
             </div>
-        </div>
+        </div> 
     </nav>
 
 
