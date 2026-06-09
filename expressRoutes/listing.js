@@ -5,6 +5,12 @@ const { validateListing, isLoggedIN, isOwner } = require("../config/middleware")
 
 const listingController = require("../controllers/listings");
 
+//To search listings based on country
+router.get(
+    "/search",
+    wrapAsync(listingController.search)
+);
+
 // Index Page & Create New Listing
 router
     .route("/")

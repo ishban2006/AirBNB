@@ -45,11 +45,6 @@ configPassport();
 //To flash success message 
 app.use(flashSuccess);
 
-//Root Page
-app.get("/", (req, res) => {
-    res.render("home");
-});
-
 //Listings
 app.use("/listings", listingR);
 

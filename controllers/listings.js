@@ -67,9 +67,43 @@ module.exports.saveEditInfo = async (req, res) => {
     res.redirect(`/listings/${id}`);
 }
 
+//Delete Listing
 module.exports.delete = async (req, res) => {
     let {id} = req.params;
     const deleted = await Listing.findByIdAndDelete(id); 
     req.flash("success", "Listing Deleted Successfully!!"); 
     res.redirect("/listings");
 }
+
+//Search listing based on country, location, title or price
+module.exports.search = async (req, res) => {
+    const searchText = req.query.searchText?.trim();
+
+    if (!searchText) {
+        req.flash("error", "Please enter something to search");
+        return res.redirect("/listings");
+    }
+
+    let allListings;
+
+    if (!isNaN(searchText)) {
+        allListings = await Listing.find({
+            price: { $lte: Number(searchText) }
+        });
+    } else {
+        allListings = await Listing.find({
+            $or: [
+                { country: { $regex: searchText, $options: "i" } },
+                { location: { $regex: searchText, $options: "i" } },
+                { title: { $regex: searchText, $options: "i" } }
+            ]
+        });
+    }
+
+    if (allListings.length === 0) {
+        req.flash("error", "No matching listings found");
+        return res.redirect("/listings");
+    }
+
+    res.render("listing/index", { allListings });
+};

@@ -28,6 +28,13 @@ body {
     text-decoration: underline !important;
 }
 
+.search-bar {
+    border-radius: 0.5rem !important;
+    border: 1px solid #17131474 !important;
+    padding: 0.5rem 2.5rem 0.5rem 2.5rem !important;
+    text-align: center;
+}
+
 /* Footer */
 .f-info {
     text-align: center;
@@ -175,6 +182,15 @@ body {
 
 .btn-login {
     background-color: #007bffc9 !important;
+}
+
+.btn-search {
+    padding: 0 1rem 0 1rem !important;
+}
+
+.btn-search i {
+    display: inline;
+    margin-right: 0.5rem;
 }
 
 .signUPlink {
