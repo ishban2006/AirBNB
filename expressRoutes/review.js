@@ -3,12 +3,13 @@ const router = express.Router({ mergeParams : true});   //To pass params of pare
 const Listing = require("../models/listings");
 const Review = require("../models/review");
 const wrapAsync = require("../utility/wrapAsync");
-const {validateReview, isLoggedIN, isReviewOwner, hasReviewed} = require("../config/middleware");
+const {validateReview, isLoggedIN, isReviewOwner, hasReviewed, notOwner} = require("../config/middleware");
 
 //Add a Review
 router.post(
     "/",
     isLoggedIN,
+    notOwner,
     hasReviewed,
     validateReview,
     wrapAsync(async (req, res) => { 

@@ -108,3 +108,14 @@ module.exports.hasReviewed = async(req, res, next) => {
     }
     next();
 }
+
+//To ensure that owner can't review his/her own listing
+module.exports.notOwner = async (req, res, next) => {
+    let {id} = req.params;
+    let listing = await Listing.findById(id);
+    if (listing.owner.equals(req.user._id)) {
+        req.flash("error", "You can't review your own listing");
+        return res.redirect(`/listings/${id}`);
+    }
+    next();
+}

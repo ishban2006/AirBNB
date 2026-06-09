@@ -35,7 +35,9 @@
 
         <!-- Add Review Section -->
         <div class="col-10 col-md-8 mx-auto mt-4 mb-5">
-            <% if (currUser && !hasReviewed) { %>
+            <% if (currUser && 
+                   !hasReviewed && 
+                   compData.owner._id.toString() !== currUser._id.toString()) { %>
             <hr>
             <h3>Leave a Review</h3>
 
@@ -84,9 +86,8 @@
             <br>
             <hr class="my-4">
             <h3>Reviews</h3>
-            <br>
             <% if (compData.reviews.length === 0) { %>
-                <p>No reviews yet.</p>
+                <p class="text-muted mt-3">No reviews yet.</p>
             <% } else { %>
                 <div class="row justify-content-center">
                     <% compData.reviews.forEach(review => { %>
