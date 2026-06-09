@@ -188,7 +188,3 @@ http://localhost:8080
 * Maps Integration
 * User Profiles
 * Pagination
-
-## License
-
-This project is built for learning and educational purposes.
