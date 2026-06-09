@@ -6,21 +6,23 @@ const { validateReview, isLoggedIN, isReviewOwner, hasReviewed, notOwner } = req
 const reviewController = require("../controllers/reviews");
 
 // Add Review
-router.post(
-    "/",
-    isLoggedIN,
-    notOwner,
-    hasReviewed,
-    validateReview,
-    wrapAsync(reviewController.createReview)
-);
+router.
+    route("/").
+        post(
+            isLoggedIN,
+            notOwner,
+            hasReviewed,
+            validateReview,
+            wrapAsync(reviewController.createReview)
+    );
 
 // Delete Review
-router.delete(
-    "/:reviewId",
-    isLoggedIN,
-    isReviewOwner,
-    wrapAsync(reviewController.deleteReview)
-);
+router.
+    route("/:reviewId").
+        delete(
+            isLoggedIN,
+            isReviewOwner,
+            wrapAsync(reviewController.deleteReview)
+    );
 
 module.exports = router;

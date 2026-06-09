@@ -6,39 +6,31 @@ const { saveURL } = require("../config/middleware");
 
 const userController = require("../controllers/users");
 
-// Signup Form
-router.get(
-    "/signup",
-    userController.renderSignupForm
-);
+//SignUp
+router.
+    route("/signup").
+        get(userController.renderSignupForm).   //SignUp Form
+        post(
+            wrapAsync(userController.signup)    //SignUp
+        );
 
-// Signup
-router.post(
-    "/signup",
-    wrapAsync(userController.signup)
-);
-
-// Login Form
-router.get(
-    "/login",
-    userController.renderLoginForm
-);
-
-// Login
-router.post(
-    "/login",
-    saveURL,
-    passport.authenticate("local", {
-        failureRedirect: "/login",
-        failureFlash: true
-    }),
-    userController.login
-);
+//Login
+router.
+    route("/login").
+        get(userController.renderLoginForm).     //Login Form
+        post(                                    //Login
+        saveURL,
+        passport.authenticate("local", {
+            failureRedirect: "/login",
+            failureFlash: true
+        }),
+        userController.login
+    );
 
 // Logout
-router.get(
-    "/logout",
-    userController.logout
-);
+router.
+    route("/logout").
+        get(userController.logout);
+
 
 module.exports = router;
