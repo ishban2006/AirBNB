@@ -1,62 +1,44 @@
 const express = require("express");
-const router = express.Router({ mergeParams : true});   //To pass params of parent like id from app to router
-const Listing = require("../models/listings");
-const Review = require("../models/review");
-const User = require("../models/user");
-const wrapAsync = require("../utility/wrapAsync");
+const router = express.Router();
 const passport = require("passport");
-const { isLoggedIN, saveURL } = require("../config/middleware");
+const wrapAsync = require("../utility/wrapAsync");
+const { saveURL } = require("../config/middleware");
 
-router.get("/signup", (req, res) => {
-    res.render("user/signup.ejs");
-}); 
+const userController = require("../controllers/users");
 
-router.post("/signup", 
-    wrapAsync(async (req, res) => {
-        try {
-            let {username, email, password} = req.body.user;
-            const newUser = new User({username, email});
-            let registered = await User.register(newUser, password);
-            console.log(registered);
-            req.login(registered, (err) => {
-                if (err) {
-                    return next(err);
-                }
-                req.flash("success", "Welcome To AirBNB");
-                res.redirect("/listings");
-            })
-        } catch(err) {
-            req.flash("error", err.message);
-            res.redirect("/signup");
-        }
-    }) 
+// Signup Form
+router.get(
+    "/signup",
+    userController.renderSignupForm
 );
 
-router.get("/login", (req, res) => {
-    res.render("user/login.ejs");
-}); 
+// Signup
+router.post(
+    "/signup",
+    wrapAsync(userController.signup)
+);
 
-router.post("/login",
+// Login Form
+router.get(
+    "/login",
+    userController.renderLoginForm
+);
+
+// Login
+router.post(
+    "/login",
     saveURL,
     passport.authenticate("local", {
         failureRedirect: "/login",
         failureFlash: true
     }),
-    wrapAsync(async (req, res) => {
-        req.flash("success", "Welcome Back to AirBNB");
-        let redirectLink = res.locals.redirURL || "/listings";
-        res.redirect(redirectLink);
-    })
+    userController.login
 );
 
-router.get("/logout", (req, res, next) => {
-    req.logout((err) => {
-        if (err) {
-            return next(err);
-        }
-        req.flash("success", "You are Logged Out");
-        res.redirect("/listings");
-    });
-}); 
+// Logout
+router.get(
+    "/logout",
+    userController.logout
+);
 
 module.exports = router;
