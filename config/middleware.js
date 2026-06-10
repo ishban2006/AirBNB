@@ -4,6 +4,7 @@ const { listingSchema, reviewSchema } = require("../schema");
 const expressError = require("../utility/expressError");
 const passport = require("passport");
 const localStrategy = require("passport-local");
+const multer = require("multer");
 
 // Joi Validation Middleware For Listing
 module.exports.validateListing = (req, res, next) => {
@@ -118,4 +119,15 @@ module.exports.notOwner = async (req, res, next) => {
         return res.redirect(`/listings/${id}`);
     }
     next();
+}
+
+//To ensure file size is <= 2 MB
+module.exports.checkSize = (err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+            req.flash("error", "Image size must be less than 2 MB");
+            return res.redirect(req.get("Referrer") || "/listings");
+        }
+    }
+    next(err);
 }

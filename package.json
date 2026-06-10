@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "24.13.0"
+  },
   "name": "airbnb",
   "version": "1.0.0",
   "description": "A production-style full-stack application that enables users to discover, list, and book rental properties. <br> Features include authentication, property management, and booking workflows, designed with a focus on usability and scalability.",
@@ -20,8 +23,11 @@
   },
   "homepage": "https://github.com/ishban2006/AirBNB#readme",
   "dependencies": {
+    "cloudinary": "^2.10.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
     "ejs": "^5.0.2",
     "ejs-mate": "^4.0.0",
     "express": "^5.2.1",
@@ -29,6 +35,8 @@
     "joi": "^18.2.1",
     "method-override": "^3.0.0",
     "mongoose": "^9.5.0",
+    "multer": "^2.1.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^9.1.0"

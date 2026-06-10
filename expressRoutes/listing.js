@@ -1,6 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utility/wrapAsync");
+const {cloudinary} = require("../cloudConfig");
+const {storage} = require("../cloudConfig");
+const multer  = require('multer');
+const upload = multer({ 
+    storage,
+    limits: {
+        fileSize: 2 * 1024 * 1024 // 2 MB
+    }
+});    //Initialize multer
 const { validateListing, isLoggedIN, isOwner } = require("../config/middleware");
 
 const listingController = require("../controllers/listings");
@@ -28,6 +37,7 @@ router
         .post(                                              //Save New Listing
             isLoggedIN,
             validateListing,
+            upload.single('listing[image]'),
             wrapAsync(listingController.saveNewListing)
     );
 
@@ -40,6 +50,7 @@ router
         .put(                                           //Save Edited Info
             isLoggedIN,
             isOwner,
+            upload.single('listing[image]'),
             validateListing,
             wrapAsync(listingController.saveEditInfo)
         )

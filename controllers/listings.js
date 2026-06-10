@@ -1,4 +1,5 @@
 const Listing = require("../models/listings");
+const {cloudinary} = require("../cloudConfig");
 
 //Index Page to view all listings
 module.exports.index = async (req, res) => {      
@@ -16,7 +17,12 @@ module.exports.newListing = async (req, res) => {
 //Save the new listing in database
 module.exports.saveNewListing = async (req, res) => {
     const newElem = new Listing (req.body.listing);
+    
     newElem.owner = req.user._id;
+    newElem.image = {
+    url: req.file.path,
+    filename: req.file.filename
+    };
     await newElem.save();
     req.flash("success", "New Listing Created Successfully!!");
     res.redirect("/listings");
@@ -62,7 +68,25 @@ module.exports.edit = async (req, res) => {
 //Save Edit Info
 module.exports.saveEditInfo = async (req, res) => {
     let {id} = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });   //Deconstruct object into individual values
+
+    let listing = await Listing.findById(id);
+
+    if (req.file) {                                         
+        if (
+            listing.image.filename &&                               //If image is chnaged and old image was uploaded then it should be deleted from cloudinary
+            listing.image.filename !== "listingimage"
+        ) {
+            await cloudinary.uploader.destroy(
+                listing.image.filename
+            );
+        }
+
+        req.body.listing.image = {
+            url: req.file.path,
+            filename: req.file.filename
+        };
+    }
+    await Listing.findByIdAndUpdate(id, req.body.listing);   //Deconstruct object into individual values
     req.flash("success", "Information Edited Successfully!!");
     res.redirect(`/listings/${id}`);
 }
@@ -70,7 +94,19 @@ module.exports.saveEditInfo = async (req, res) => {
 //Delete Listing
 module.exports.delete = async (req, res) => {
     let {id} = req.params;
-    const deleted = await Listing.findByIdAndDelete(id); 
+    let listing = await Listing.findById(id);
+
+    if (                                    //If an image was uploaded for listing then it should be deleted from cloudinary
+        listing.image?.filename &&
+        listing.image.filename !== "listingimage"
+    ) {
+        await cloudinary.uploader.destroy(
+            listing.image.filename
+        );
+    }
+
+    await Listing.findByIdAndDelete(id); 
+
     req.flash("success", "Listing Deleted Successfully!!"); 
     res.redirect("/listings");
 }
