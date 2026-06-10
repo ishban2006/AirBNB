@@ -1,190 +1,128 @@
-# WanderLust
+# WanderLust - Airbnb Inspired Property Rental Platform
 
-A full-stack Airbnb-inspired property listing platform built using Node.js, Express.js, MongoDB, EJS, Bootstrap, and Passport.js.
+A full-stack property rental platform inspired by Airbnb where users can explore destinations, create and manage listings, upload property images, and share reviews. The application focuses on secure authentication, role-based authorization, image management, and a seamless user experience.
 
 ## Features
 
-### Explore Listings
+### Authentication & Authorization
 
-Browse unique stays from around the world with detailed descriptions, images, locations, and pricing information.
+* User Signup, Login, and Logout using Passport.js
+* Session-based authentication with Express Session
+* MongoDB Atlas session storage using Connect-Mongo
+* Protected routes for authenticated users
+* Role-based authorization for listings and reviews
 
-### Create & Manage Listings
+### Listing Management
 
-Authenticated users can:
-
-* Create new listings
-* Edit their own listings
-* Delete their own listings
+* Create, edit, view, and delete property listings
+* Search listings by country, location, title, and maximum price
+* Image upload support using Multer
+* Cloudinary integration for cloud image storage
+* Automatic replacement and deletion of old images
 
 ### Reviews & Ratings
 
-Users can:
+* Add ratings and reviews to listings
+* Prevent duplicate reviews from the same user
+* Restrict listing owners from reviewing their own listings
+* Review ownership validation for deletion
 
-* Add reviews and ratings to listings
-* View reviews left by other users
-* Delete their own reviews
-* Review a listing only once
-* Cannot review their own listings
+### Validation & Error Handling
 
-### Authentication & Authorization
+* Server-side validation using Joi
+* Centralized error handling middleware
+* Flash messages for success and error notifications
+* Custom Express error handling
 
-Secure user authentication powered by Passport.js.
+### Architecture
 
-Features include:
-
-* User Signup
-* User Login
-* User Logout
-* Session Management
-* Flash Messages
-* Protected Routes
-* Ownership Verification for Listings and Reviews
-
-### Validation
-
-Robust validation on both client and server sides.
-
-* Bootstrap Validation (Frontend)
-* Joi Validation (Backend)
-
-### Error Handling
-
-Custom centralized error handling using:
-
-* Async wrappers
-* Custom Express Error classes
-* Error middleware
+* MVC (Model-View-Controller) architecture
+* Modular route and controller structure
+* Reusable middleware implementation
 
 ## Tech Stack
 
-| Layer          | Technology                     |
-| -------------- | ------------------------------ |
-| Frontend       | EJS, Bootstrap 5               |
-| Backend        | Node.js, Express.js            |
-| Database       | MongoDB, Mongoose              |
-| Authentication | Passport.js, Passport-Local    |
-| Sessions       | Express-Session                |
-| Validation     | Joi, Bootstrap Validation      |
-| Templating     | EJS-Mate                       |
-| Utilities      | Method-Override, Connect-Flash |
+### Frontend
 
-## Project Structure
+* EJS
+* Bootstrap 5
+* HTML5
+* CSS3
+* JavaScript
 
-```text
-AirBNB/
-│
-├── config/
-│   ├── db.js
-│   ├── middleware.js
-│   └── passport.js
-│
-├── controllers/
-│   ├── listings.js
-│   ├── reviews.js
-│   └── users.js
-│
-├── expressRoutes/
-│   ├── listing.js
-│   ├── review.js
-│   └── user.js
-│
-├── models/
-│   ├── listings.js
-│   ├── review.js
-│   └── user.js
-│
-├── public/
-│   ├── css/
-│   └── js/
-│
-├── utility/
-│   ├── expressError.js
-│   └── wrapAsync.js
-│
-├── views/
-│   ├── includes/
-│   ├── layouts/
-│   ├── listing/
-│   └── user/
-│
-├── app.js
-├── schema.js
-├── package.json
-└── README.md
-```
+### Backend
 
-## MVC Architecture
+* Node.js
+* Express.js
 
-The application follows the MVC (Model-View-Controller) design pattern.
+### Database
 
-### Models
+* MongoDB Atlas
+* Mongoose
 
-Handle database schemas and interactions using Mongoose.
+### Authentication & Security
 
-### Views
+* Passport.js
+* Passport-Local
+* Express Session
+* Connect-Mongo
 
-Render dynamic pages using EJS templates.
+### Media Storage
 
-### Controllers
+* Cloudinary
+* Multer
+* Multer Storage Cloudinary
 
-Contain all business logic and request handling.
+### Validation
 
-### Routes
-
-Handle endpoint definitions and delegate logic to controllers.
+* Joi
 
 ## Installation
 
-Clone the repository:
+1. Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/ishban2006/AirBNB.git
 cd AirBNB
 ```
 
-Install dependencies:
+2. Install dependencies
 
 ```bash
 npm install
 ```
 
-Start MongoDB and run the application:
+3. Create a .env file
 
-```bash
-npm start
+```env
+MONGOATLAS_DB_URL=your_mongodb_atlas_url
+SECRET=your_session_secret
+
+CLOUD_NAME=your_cloudinary_cloud_name
+CLOUD_API_KEY=your_cloudinary_api_key
+CLOUD_API_SECRET=your_cloudinary_api_secret
 ```
 
-For development:
+4. Start the development server
 
 ```bash
 npm run dev
 ```
 
-Visit:
+## Key Learnings
 
-```text
-http://localhost:8080
-```
-
-## Key Functionalities
-
-* User Authentication
-* Session Management
-* Listing CRUD Operations
-* Review CRUD Operations
-* Ownership Authorization
-* Flash Messages
-* Joi Validation
-* Custom Error Handling
-* Responsive Design
-* MVC Architecture
+* Authentication and session management using Passport.js
+* MongoDB Atlas integration and cloud database deployment
+* Image upload and cloud storage with Cloudinary
+* MVC architecture and scalable project structure
+* Middleware design and authorization patterns
+* Server-side validation and centralized error handling
 
 ## Future Improvements
 
-* Image Uploads with Cloudinary
-* Search & Filtering
-* Wishlist/Favorites
-* Booking System
-* Maps Integration
-* User Profiles
-* Pagination
+* Interactive maps integration
+* Property categories and filters
+* Booking functionality
+* Wishlist/Favorites system
+* Payment gateway integration
+* Responsive image galleries
