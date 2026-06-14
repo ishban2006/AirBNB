@@ -8,6 +8,20 @@ module.exports.index = async (req, res) => {
     console.log("Rendered Listings Page");
 }
 
+//View your listings
+module.exports.yourListing = async (req, res) => {     
+    let user = req.user._id;
+    const allListings = await Listing.find({ owner : user });
+
+    if (allListings.length === 0) {
+        req.flash("error", "You don't own any listing");
+        return res.redirect("/listings");
+    }
+
+    res.render("../views/listing/index", { allListings });
+    console.log("Rendered Listings of user");
+}
+
 //Show form to add new listing
 module.exports.newListing = async (req, res) => {
     res.render("../views/listing/createNew");

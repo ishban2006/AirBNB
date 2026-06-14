@@ -27,6 +27,13 @@ router
             wrapAsync(listingController.index)
     );
 
+//To view your own listings
+router.get(
+    "/your-listings",
+    isLoggedIN,
+    wrapAsync(listingController.yourListing)
+);
+
 // Show Form & Save New Listing
 router
     .route("/createNew")

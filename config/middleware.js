@@ -44,6 +44,9 @@ module.exports.notFound = (req, res, next) => {
 
 //Displaying Errors
 module.exports.dispError = (err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
     let {statusCode = 500, message = "Something Went Wrong"} = err;
     console.log("Error handled:", message);
     res.status(statusCode).render("error.ejs", {err});

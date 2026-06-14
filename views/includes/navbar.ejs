@@ -15,6 +15,11 @@
                 <div class="gap-2">
                     <a class="nav-link" href="/listings">All Listings</a>
                 </div>
+                <div class="gap-2 ml-2">
+                    <% if(currUser) { %>
+                        <a class="nav-link" href="/listings/your-listings">View Your Listings</a>
+                    <% } %>
+                </div>
                 <div class="ms-auto">
                     <form class="d-flex" role="search" action="/listings/search" method="GET">
                         <input class="form-control me-2 search-bar" type="search" name="searchText" 
