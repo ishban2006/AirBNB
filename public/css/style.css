@@ -9,30 +9,93 @@ body {
     flex: 1;
 }
 
-/* Navbar */
-.navbar {
-    height: 5rem;
+/* NAVBAR */
+
+.navbar{
+    min-height:5rem;
 }
 
-.fa-joomla {
-    color: #E5383B;
-    font-size: 2rem;
+.container-fluid{
+    display:flex;
+    align-items:center;
 }
 
-.nav-link {
-    color: #0B090A !important;
-    font-size: 1.25rem !important;
+.fa-joomla{
+    color:#E5383B !important;
+    font-size:2rem !important;
 }
 
-.nav-link:hover {
-    text-decoration: underline !important;
+.nav-link{
+    color:#0B090A !important;
+    font-size:1.4rem !important;
 }
 
-.search-bar {
-    border-radius: 0.5rem !important;
-    border: 1px solid #17131474 !important;
-    padding: 0.5rem 2.5rem 0.5rem 2.5rem !important;
-    text-align: center;
+.desktop-layout{
+    flex:1;
+    display:flex;
+    align-items:center;
+}
+
+.desktop-left,
+.desktop-right{
+    display:flex;
+    gap:1rem;
+}
+
+.desktop-right{
+    margin-left:auto;
+}
+
+.navbar-search{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.search-bar{
+    width:320px;
+    text-align:center;
+    border-radius:0.5rem !important;
+}
+
+.btn-search{
+    width:60px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0 !important;
+}
+
+.btn-search i{
+    margin:0 !important;
+    font-size:1.3rem;
+}
+
+.mobile-links{
+    text-align:center;
+    padding:1rem;
+}
+
+.mobile-links .nav-link{
+    padding:0.75rem 0;
+}
+
+/* MOBILE */
+
+@media(max-width:767px){
+
+    .navbar-search-mobile{
+        flex:1;
+        margin:0 1rem 0 0.25rem;
+    }
+
+    .navbar-search-mobile .search-bar{
+        width:100%;
+    }
+
+    .navbar-toggler{
+        flex-shrink:0;
+    }
 }
 
 /* Footer */
