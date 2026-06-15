@@ -6,6 +6,7 @@
             <i class="fa-brands fa-joomla"></i>
         </a>
 
+        <!-- Desktop Layout -->
         <div class="desktop-layout d-none d-md-flex">
 
             <!-- Left Links -->
@@ -15,7 +16,7 @@
                     All Listings
                 </a>
 
-                <% if(currUser){ %>
+                <% if(locals.currUser){ %>
                     <a class="nav-link" href="/listings/your-listings">
                         My Listings
                     </a>
@@ -39,6 +40,7 @@
                 <button class="btn btn-success btn-search" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
+
             </form>
 
             <!-- Right Links -->
@@ -48,23 +50,36 @@
                     Add Listing
                 </a>
 
-                <% if(!currUser){ %>
-                    <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-                    <a class="nav-link" href="/login"><b>Login</b></a>
+                <% if(!locals.currUser){ %>
+
+                    <a class="nav-link" href="/signup">
+                        <b>Sign Up</b>
+                    </a>
+
+                    <a class="nav-link" href="/login">
+                        <b>Login</b>
+                    </a>
+
                 <% } %>
 
-                <% if(currUser){ %>
-                    <a class="nav-link"
-                    href="/logout"
-                    onclick="return confirm('Are you sure you want to log out?')">
+                <% if(locals.currUser){ %>
+
+                    <a
+                        class="nav-link"
+                        href="/logout"
+                        onclick="return confirm('Are you sure you want to log out?')">
+
                         <b>Logout</b>
+
                     </a>
+
                 <% } %>
 
             </div>
 
         </div>
 
+        <!-- Mobile Search -->
         <form
             class="d-flex navbar-search-mobile d-md-none"
             role="search"
@@ -88,13 +103,18 @@
             class="navbar-toggler d-md-none"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#mobileMenu">
+            data-bs-target="#mobileMenu"
+            aria-controls="mobileMenu"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
             <span class="navbar-toggler-icon"></span>
+
         </button>
+
     </div>
 
-    <!-- MOBILE MENU -->
+    <!-- Mobile Menu -->
     <div class="collapse d-md-none w-100" id="mobileMenu">
 
         <div class="mobile-links">
@@ -103,30 +123,45 @@
                 All Listings
             </a>
 
-            <% if(currUser){ %>
+            <% if(locals.currUser){ %>
+
                 <a class="nav-link" href="/listings/your-listings">
                     My Listings
                 </a>
+
             <% } %>
 
             <a class="nav-link" href="/listings/createNew">
                 Add Listing
             </a>
 
-            <% if(!currUser){ %>
-                <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-                <a class="nav-link" href="/login"><b>Login</b></a>
+            <% if(!locals.currUser){ %>
+
+                <a class="nav-link" href="/signup">
+                    <b>Sign Up</b>
+                </a>
+
+                <a class="nav-link" href="/login">
+                    <b>Login</b>
+                </a>
+
             <% } %>
 
-            <% if(currUser){ %>
-                <a class="nav-link"
+            <% if(locals.currUser){ %>
+
+                <a
+                    class="nav-link"
                     href="/logout"
                     onclick="return confirm('Are you sure you want to log out?')">
+
                     <b>Logout</b>
+
                 </a>
+
             <% } %>
 
         </div>
 
     </div>
+
 </nav>
