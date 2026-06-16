@@ -16,7 +16,7 @@
                     All Listings
                 </a>
 
-                <% if(locals.currUser){ %>
+                <% if(currUser){ %>
                     <a class="nav-link" href="/listings/your-listings">
                         My Listings
                     </a>
@@ -50,7 +50,7 @@
                     Add Listing
                 </a>
 
-                <% if(!locals.currUser){ %>
+                <% if(!currUser){ %>
 
                     <a class="nav-link" href="/signup">
                         <b>Sign Up</b>
@@ -62,7 +62,7 @@
 
                 <% } %>
 
-                <% if(locals.currUser){ %>
+                <% if(currUser){ %>
 
                     <a
                         class="nav-link"
@@ -123,7 +123,7 @@
                 All Listings
             </a>
 
-            <% if(locals.currUser){ %>
+            <% if(currUser){ %>
 
                 <a class="nav-link" href="/listings/your-listings">
                     My Listings
@@ -135,7 +135,7 @@
                 Add Listing
             </a>
 
-            <% if(!locals.currUser){ %>
+            <% if(!currUser){ %>
 
                 <a class="nav-link" href="/signup">
                     <b>Sign Up</b>
@@ -147,7 +147,7 @@
 
             <% } %>
 
-            <% if(locals.currUser){ %>
+            <% if(currUser){ %>
 
                 <a
                     class="nav-link"
