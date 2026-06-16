@@ -24,7 +24,7 @@
                 <div class="form-group mb-3">
                     <label for="imageUrl" class="form-label"><b>Image:</b></label><br>
                     <img src="<%= compData.image.url %>" alt="Listing Image" class="img-fluid rounded shadow-sm mb-3" style="max-width: 200px;">
-                    <input type="file" name="listing[image]" 
+                    <input type="file" name="listing[image]" id="imageUrl"
                         class="form-control" accept=".jpg,.jpeg,.png">
                     <div class="invalid-feedback">
                         Please upload an image.
@@ -63,4 +63,6 @@
             </form>
         </div>
     </div>
+
+    <script src="/js/imageValidation.js"></script>
 </body>
