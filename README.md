@@ -4,12 +4,6 @@ A full-stack property rental platform inspired by Airbnb where users can explore
 
 ---
 
-## Live Demo
-
-* 🌐 **Live Application:** https://airbnb-ib-project.onrender.com
-
----
-
 ## Features
 
 ### Authentication & Authorization
