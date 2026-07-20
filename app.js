@@ -16,12 +16,12 @@ const userR = require("./expressRoutes/user");
 const {notFound, dispError, flashSuccess, checkSize} = require("./config/middleware");
 const path = require("path");
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");    // Set templates to ejs
+app.set("views", path.join(__dirname, "views"));    // To give express the apt path of viewd folder
 app.use(express.urlencoded({extended : true}));     //To parse data of an id
-app.use(methodOverride("_method"));
+app.use(methodOverride("_method"));   // To process other requests like PUT, DELETE
 app.engine('ejs', ejsMate);
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static(path.join(__dirname, "/public")));   // To server css, images, fonts
 
 const store = MongoStore.create({
   mongoUrl: process.env.MONGOATLAS_DB_URL,
@@ -65,10 +65,7 @@ app.use("/listings", listingR);
 //Reviews
 app.use("/listings/:id/reviews", reviewR)
 
-//SignUp
-app.use("/", userR);
-
-//Login
+//SignUp and Login
 app.use("/", userR);
 
 //For incorrect request
